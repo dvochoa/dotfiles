@@ -1,0 +1,24 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Danny Ochoa
+	email = danny@dannyochoa.net
+[alias]
+	last = log -1 HEAD
+	newbranch = "!f() { git checkout -b $1 && git push -u origin $1; }; f"
+	pumpkin = rebase -i origin/main
+	st = status
+	sync = "!f() { local cur_branch=$(git branch --show-current) && echo "Starting Sync" && echo "Stashing" && git stash && echo "Checking Out $1" && git checkout $1 && echo "Pulling" && git pull && echo "Checking out ${cur_branch} && echo "Merging $1" && git merge $1 && echo "Unstashing" && git stash pop && echo "Sync Complete"; }; f"
+	yoda = push -f
+[credential]
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[branch]
+	autosetuprebase = always
+[pull]
+	ff = only
+	rebase = true
+[merge]
+	conflictstyle = diff3
+[init]
+	defaultBranch = main
