@@ -3,13 +3,15 @@
 	name = Danny Ochoa
 	email = danny@dannyochoa.net
 [alias]
-	last = log -1 HEAD
+	qlog = "!f() { local cur_branch=$(git branch --show-current) && git log --oneline \"$cur_branch\" ^origin/main | cat; }; f"
 	pumpkin = rebase -i origin/main
 	st = status
 	sync = "!f() { local cur_branch=$(git branch --show-current) && echo \"Starting Sync\" && echo \"Stashing\" && git stash && echo \"Checking Out $1\" && git checkout \"$1\" && echo \"Pulling\" && git pull && echo \"Checking out ${cur_branch}\" && git checkout \"$cur_branch\" && echo \"Merging $1\" && git merge $1 && echo \"Unstashing\" && git stash pop && echo \"Sync Complete\"; }; f"
 	yoda = push -f
 	switchcreate = "!f() { git switch -c $1 && git push -u origin $1; }; f"
 	commitpush = "!f() { git commit -am \"$1\" && git push; }; f"
+	fixup = commit -a --fixup=HEAD
+	fixuppush = "!f() { git commit -a --fixup=HEAD && git push; }; f"
 [credential]
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
@@ -43,3 +45,7 @@
 	all = true
 [help]
 	autocorrect = prompt
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
