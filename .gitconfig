@@ -13,6 +13,7 @@
 	commitpush = "!f() { git commit -am \"$1\" && git push; }; f"
 	fixup = commit -a --fixup=HEAD
 	fixuppush = "!f() { git commit -a --fixup=HEAD && git push; }; f"
+	xl = log --graph --oneline --all --decorate
 [credential]
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
