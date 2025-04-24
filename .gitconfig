@@ -28,8 +28,6 @@
 	conflictstyle = zdiff3
 [init]
 	defaultBranch = main
-[blame]
-	ignoreRevsFile = .git-blame-ignore-revs
 [column]
 	ui = auto
 [tag]
