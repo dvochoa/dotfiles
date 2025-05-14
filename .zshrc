@@ -105,8 +105,18 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+## Aliases
 alias vim=nvim
 alias vi=nvim
+
+## Functions
+vif() {
+  local file
+  file=$(fzf --preview="bat --style=numbers --color=always {}")
+  if [[ -n "$file" ]]; then
+    nvim "$file"
+  fi
+}
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -114,3 +124,14 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH=$PATH:$(go env GOPATH)/bin
 export PATH="/usr/local/opt/postgresql@14/bin:$PATH"
+
+# Tab autocompletion shows all files include hidden ones
+zstyle ':completion:*' file-patterns '*(D)'
+
+## fzf
+# Set up configure fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
+# Use fd as default to respect .gitignore
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
