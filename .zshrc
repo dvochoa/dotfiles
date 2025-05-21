@@ -105,6 +105,15 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+## Enable vi mode in the terminal
+bindkey -v
+
+# Remap _ to beginning of line like in vim
+bindkey -M vicmd _ beginning-of-line
+
+# Configure the timeout for multi-input commands
+export KEYTIMEOUT=1
+
 ## Aliases
 alias vim=nvim
 alias vi=nvim
