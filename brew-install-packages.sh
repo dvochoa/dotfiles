@@ -6,7 +6,7 @@ set -euo pipefail
 # List of Homebrew formulae to install
 packages=(
   git bat zsh-syntax-highlighting fd fzf
-  gh neovim
+  gh neovim maccy
 )
 
 echo "Updating Homebrew..."
