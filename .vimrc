@@ -1,3 +1,9 @@
+" Unbind arrow keys in normal mode to enforce hjkl for navigation
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+
 " Allows for shifting text up and down (note: Overrides the Join (J) command)
 nnoremap J :m .+1<CR>==
 nnoremap K :m .-2<CR>==
