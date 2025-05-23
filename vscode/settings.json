@@ -1,0 +1,85 @@
+{
+  "editor.accessibilitySupport": "off",
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["k", "j"],
+      "after": ["<Esc>"]
+    },
+    {
+      "before": ["C-l"],
+      "commands": ["workbench.action.nextEditor"]
+    },
+    {
+      "before": ["C-h"],
+      "commands": ["workbench.action.previousEditor"]
+    },
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["J"],
+      "commands": ["editor.action.moveLinesDownAction"]
+    },
+    {
+      "before": ["K"],
+      "commands": ["editor.action.moveLinesUpAction"]
+    },
+    {
+      "before": ["<tab>"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<S-tab>"],
+      "commands": ["editor.action.outdentLines"]
+    },
+    {
+      "before": ["C-l"],
+      "commands": ["workbench.action.nextEditor"]
+    },
+    {
+      "before": ["C-h"],
+      "commands": ["workbench.action.previousEditor"]
+    },
+    {
+      "before": [":", "E"],
+      "commands": ["workbench.view.explorer"]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": ["J"],
+      "commands": ["editor.action.moveLinesDownAction"]
+    },
+    {
+      "before": ["K"],
+      "commands": ["editor.action.moveLinesUpAction"]
+    },
+    {
+      "before": ["<tab>"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<S-tab>"],
+      "commands": ["editor.action.outdentLines"]
+    },
+    {
+      "before": ["C-l"],
+      "commands": ["workbench.action.nextEditor"]
+    },
+    {
+      "before": ["C-h"],
+      "commands": ["workbench.action.previousEditor"]
+    }
+  ],
+  "editor.lineNumbers": "relative",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": [
+    "--fast"
+  ],
+  "workbench.editor.enablePreview": false,
+}
+
