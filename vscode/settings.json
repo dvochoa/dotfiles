@@ -71,6 +71,8 @@
     }
   ],
   "editor.lineNumbers": "relative",
+  "editor.rulers": [100],
+  "java.autobuild.enabled": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "[typescriptreact]": {
