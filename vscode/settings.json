@@ -1,5 +1,4 @@
 {
-  "editor.accessibilitySupport": "off",
   "vim.insertModeKeyBindings": [
     {
       "before": ["k", "j"],
@@ -70,8 +69,10 @@
       "commands": ["workbench.action.previousEditor"]
     }
   ],
+  "editor.accessibilitySupport": "off",
   "editor.lineNumbers": "relative",
   "editor.rulers": [100],
+  "editor.inlayHints.enabled": "off",
   "java.autobuild.enabled": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.updateImportsOnFileMove.enabled": "always",
