@@ -58,6 +58,12 @@ vif() {
   fi
 }
 
+# Make and then cd into a directory
+mkcd() {
+  \mkdir -p "$1"
+  cd "$1"
+}
+
 ## Dependencies
 # golang
 export PATH=$PATH:$(go env GOPATH)/bin
