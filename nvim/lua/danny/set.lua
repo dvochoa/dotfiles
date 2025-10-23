@@ -1,27 +1,19 @@
-vim.cmd.colorscheme("tokyonight")
+vim.cmd.colorscheme("tokyonight") -- set colortheme 
 
-vim.opt.clipboard = 'unnamedplus' -- use system keyboard for yank
+vim.o.clipboard = 'unnamedplus' -- use system keyboard for yank
  
-vim.opt.nu = true                 -- set line numbers -- set line numbers
-vim.opt.relativenumber = true     -- use relative line numbers
- 
--- set tab size to 2 spaces
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
-vim.opt.smartindent = true
- 
-vim.opt.wrap = false
- 
-vim.opt.incsearch = true -- incremental search
- 
-vim.opt.termguicolors = true
+vim.o.number = true -- enable line numbers
+vim.o.relativenumber = true -- enable relative line numbers
+vim.o.tabstop = 4 -- number of spaces a tab takes up
+vim.o.shiftwidth = 4 -- number of spaces for each indent
+vim.o.expandtab = true -- convert tabs to spaces
+vim.o.smartindent = true -- automatically indent new lines
+vim.o.wrap = false -- disable line wrapping
+vim.o.incsearch = true -- enable incremental search
+vim.o.termguicolors = true -- enable 24-bit RGB colors
 
--- Enable syntax highlighting
+-- Enable syntax highlighting and filetype plugins
 vim.cmd.syntax('on')
-
--- Enable filetype detection, plugins, and indentation
 vim.cmd.filetype('plugin indent on')
 
 -- Add .vim directories to runtime path

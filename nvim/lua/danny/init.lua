@@ -1,5 +1,5 @@
-vim.g.mapleader = " " -- Set leader key before Lazy
+vim.g.mapleader = " " -- set leader key before Lazy
 
-require("danny.lazy_init")
-require("danny.remap")
-require("danny.set")
+require("danny.lazy_init") -- Load plugins via lazy
+require("danny.remap") -- set key rebindings
+require("danny.set") -- set options
