@@ -1,16 +1,15 @@
 vim.cmd.colorscheme("tokyonight") -- set colortheme 
 
-vim.o.clipboard = 'unnamedplus' -- use system keyboard for yank
- 
-vim.o.number = true -- enable line numbers
-vim.o.relativenumber = true -- enable relative line numbers
-vim.o.tabstop = 4 -- number of spaces a tab takes up
-vim.o.shiftwidth = 4 -- number of spaces for each indent
-vim.o.expandtab = true -- convert tabs to spaces
-vim.o.smartindent = true -- automatically indent new lines
-vim.o.wrap = false -- disable line wrapping
-vim.o.incsearch = true -- enable incremental search
-vim.o.termguicolors = true -- enable 24-bit RGB colors
+vim.opt.clipboard = 'unnamedplus' -- use system keyboard for yank
+vim.opt.number = true -- enable line numbers
+vim.opt.relativenumber = true -- enable relative line numbers
+vim.opt.tabstop = 4 -- number of spaces a tab takes up
+vim.opt.shiftwidth = 4 -- number of spaces for each indent
+vim.opt.expandtab = true -- convert tabs to spaces
+vim.opt.smartindent = true -- automatically indent new lines
+vim.opt.wrap = false -- disable line wrapping
+vim.opt.incsearch = true -- enable incremental search
+vim.opt.termguicolors = true -- enable 24-bit RGB colors
 
 -- Enable syntax highlighting and filetype plugins
 vim.cmd.syntax('on')
