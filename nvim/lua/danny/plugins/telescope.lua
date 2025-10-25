@@ -10,4 +10,3 @@ return {
     vim.keymap.set('n', '<leader>fl', builtin.live_grep, {})
   end
 }
-
