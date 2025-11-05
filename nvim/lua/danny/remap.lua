@@ -6,6 +6,7 @@ local telescope_mappings = {
   {
     { "<leader>f", group = "Find" },
     { "<leader>ff", builtin.find_files, desc = "Find files" },
+    { "<leader>fh", function() builtin.find_files({ hidden = true }) end, desc = "Find files (including hidden)" },
     { "<leader>fg", builtin.git_files, desc = "Find git files" },
     { "<leader>fl", builtin.live_grep, desc = "Live grep" },
     { "<leader>fb", function() builtin.buffers({sort_mru = true, ignore_current_buffer=true }) end, desc = "Find buffers" }
