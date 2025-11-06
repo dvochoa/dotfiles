@@ -9,11 +9,30 @@ return {
   config = function()
     require("nvim-tree").setup(
       {
+        view = {
+          -- Width of File Explorer expands to fit content
+          adaptive_size = true,
+        },
         filters = {
-          dotfiles = false,
-          git_ignored = false
+          git_ignored = false,
+          -- Ignore these files/directories
+          custom = {"\\.git"},
+        },
+        update_focused_file = {
+          -- Automatically navigate to the currently opened file
+          enable = true,
         }
       }
     )
+
+    -- Open on nvim start
+    vim.api.nvim_create_autocmd("VimEnter", {
+      callback = function(data)
+        -- Only open if no file was specified
+        if data.file == "" then
+          require("nvim-tree.api").tree.open()
+        end
+      end
+    })
   end
 }
