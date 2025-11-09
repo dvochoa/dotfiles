@@ -12,15 +12,22 @@ return {
         view = {
           -- Width of File Explorer expands to fit content
           adaptive_size = true,
+          width = {
+            max = 50,  -- Maximum width in columns
+          },
+        },
+        renderer = {
+          highlight_git = true,
         },
         filters = {
           git_ignored = false,
           -- Ignore these files/directories
-          custom = {"\\.git"},
+          custom = {"^\\.git$"},
         },
         update_focused_file = {
           -- Automatically navigate to the currently opened file
           enable = true,
+          ignore_list = { "node_modules" },
         }
       }
     )
@@ -29,8 +36,10 @@ return {
     vim.api.nvim_create_autocmd("VimEnter", {
       callback = function(data)
         -- Only open if no file was specified
-        if data.file == "" then
+        if data.file == "" and vim.fn.argc() == 0 then
           require("nvim-tree.api").tree.open()
+          -- Close the empty [No Name] buffer
+          vim.cmd("bdelete 1")
         end
       end
     })
