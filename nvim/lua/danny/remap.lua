@@ -21,6 +21,8 @@ local mappings = {
     { "Q", "<cmd>bd<CR>", desc = "Close buffer" },
     { "]b", "<cmd>bn<CR>", desc = "Next buffer"},
     { "[b", "<cmd>bp<CR>", desc = "Previous buffer"},
+    { "]w", "<C-w>l", desc = "Next window"},
+    { "[w", "<C-w>h", desc = "Previous window"},
     { "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", desc = "Search and replace word under cursor"},
   },
 }
