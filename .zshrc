@@ -68,7 +68,7 @@ mkcd() {
 # golang
 export PATH=$PATH:$(go env GOPATH)/bin
 
-# postgrad
+# postgres
 export PATH="/usr/local/opt/postgresql@14/bin:$PATH"
 
 # fzf
@@ -81,28 +81,39 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 ### Lazy load dependencies to speed up zsh load time
 export NVM_DIR="$HOME/.nvm"
-nvm() {
-  unset -f nvm node npm npx
+
+# Helper function to load nvm
+_load_nvm() {
+  # Unset these stub methods now that we are loading the real things
+  unset -f nvm node npm npx claude _load_nvm  
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+}
+
+nvm() {
+  _load_nvm
+  # For nvm also load bash_completion to get autocomplete
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-  nvm "$@"
+  nvm "$@"  # Pass original args to nvm now that it's loaded
 }
 
 node() {
-  unset -f nvm node npm npx
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  _load_nvm
   node "$@"
 }
 
 npm() {
-  unset -f nvm node npm npx
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  _load_nvm
   npm "$@"
 }
 
 npx() {
-  unset -f nvm node npm npx
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  _load_nvm
   npx "$@"
+}
+
+# Claude is installed as an npm package
+claude() {
+  _load_nvm
+  claude "$@"
 }
 
