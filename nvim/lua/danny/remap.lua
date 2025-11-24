@@ -56,7 +56,6 @@ local text_manipulation_mappings = {
     { "n", "nzzzv", desc = "Search for the next occurance of the term"},
     { "N", "Nzzzv", desc = "Search for the previous occurance of the term"},
 
-
     { "<leader>p", "\"_dP", mode = "x", desc = "Paste without overriding register"},
 
     { "<leader>y", "\"+y", desc = "Yank to system clipboard"},

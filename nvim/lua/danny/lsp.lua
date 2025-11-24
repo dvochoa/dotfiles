@@ -121,12 +121,20 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local opts = { buffer = ev.buf }
 
-    -- Additional keybindings (built-ins: K, grn, gra, ctrl-], gq)
-    vim.keymap.set('n', 'gh', vim.lsp.buf.hover, opts)      -- Hover documentation
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts) -- Go to definition
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts) -- Hover documentation
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts) -- Go to declaration
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts) -- Find references
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts) -- Go to implementation
+    vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts) -- Rename the current entity
+
+    vim.keymap.set('n', '<leader>vca', vim.lsp.buf.code_action, opts) -- Open vim code actions menu
+    vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts) -- Open diagnostics menu
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts) -- Go to next diagnostics item
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts) -- Go to prev diagnostics item
+
+    vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts) -- Show method signature
+
     vim.keymap.set('n', '<leader>f', function()
         vim.lsp.buf.format({ async = true })
     end, opts) -- Format file
