@@ -24,6 +24,16 @@ vim.cmd.filetype('plugin indent on')
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- Highlight copied content on yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Hightlight selection on yank',
+  group = vim.api.nvim_create_augroup('YankHighlight', {}),
+  callback = function()
+    vim.highlight.on_yank { higroup = 'IncSearch', timeout = 100 } -- Show highlight for 100ms
+  end,
+  pattern = '*',
+})
+
 -- Add .vim directories to runtime path
 vim.opt.runtimepath:prepend('~/.vim')
 vim.opt.runtimepath:append('~/.vim/after')
