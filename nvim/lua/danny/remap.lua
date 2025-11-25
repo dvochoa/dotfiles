@@ -15,19 +15,34 @@ local telescope_mappings = {
 
 which_key.add(telescope_mappings)
 
-local mappings = {
+local buffer_mappings = {
   {
-    { "<leader>e", nvimtree.tree.toggle, desc = "Toggle File Explorer" },
     { "Q", "<cmd>bd<CR>", desc = "Close buffer" },
     { "]b", "<cmd>bn<CR>", desc = "Next buffer"},
     { "[b", "<cmd>bp<CR>", desc = "Previous buffer"},
+    { "<leader>bp", "<Cmd>BufferLineMovePrev<CR>", desc = "Move buffer in bufferline left"},
+    { "<leader>bn", "<Cmd>BufferLineMoveNext<CR>", desc = "Move buffer in bufferline right"}
+  }
+}
+
+-- Add BufferLineGoToBuffer mappings for buffers 1-9
+for i = 1, 9 do
+  table.insert(
+    buffer_mappings[1], { "<leader>" .. i, "<Cmd>BufferLineGoToBuffer " .. i .. "<CR>", desc = "Go to buffer " .. i }
+  )
+end
+
+which_key.add(buffer_mappings)
+
+local window_mappings = {
+  {
+    { "<leader>e", nvimtree.tree.toggle, desc = "Toggle File Explorer" },
     { "]w", "<C-w>l", desc = "Next window"},
     { "[w", "<C-w>h", desc = "Previous window"},
-    { "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", desc = "Search and replace word under cursor"},
   },
 }
 
-which_key.add(mappings)
+which_key.add(window_mappings)
 
 local visual_mappings = {
   {
@@ -55,6 +70,8 @@ local text_manipulation_mappings = {
   {
     { "n", "nzzzv", desc = "Search for the next occurance of the term"},
     { "N", "Nzzzv", desc = "Search for the previous occurance of the term"},
+
+    { "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", desc = "Search and replace word under cursor"},
 
     { "<leader>p", "\"_dP", mode = "x", desc = "Paste without overriding register"},
 
