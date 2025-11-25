@@ -1,5 +1,7 @@
 vim.cmd.colorscheme("tokyonight") -- set colortheme 
 
+vim.opt.mouse = 'a' -- enable mouse in all modes
+
 -- vim.opt.clipboard = 'unnamedplus' -- use system keyboard for yank
 vim.opt.number = true -- enable line numbers
 vim.opt.relativenumber = true -- enable relative line numbers
