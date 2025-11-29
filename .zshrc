@@ -85,7 +85,7 @@ export NVM_DIR="$HOME/.nvm"
 # Helper function to load nvm
 _load_nvm() {
   # Unset these stub methods now that we are loading the real things
-  unset -f nvm node npm npx claude _load_nvm  
+  unset -f nvm node npm pnpm npx claude _load_nvm  
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 }
 
@@ -109,6 +109,11 @@ npm() {
 npx() {
   _load_nvm
   npx "$@"
+}
+
+pnpm() {
+  _load_nvm
+  pnpm "$@"
 }
 
 # Claude is installed as an npm package
