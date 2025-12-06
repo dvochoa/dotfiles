@@ -1,10 +1,41 @@
-" Unbind arrow keys in normal mode to enforce hjkl navigation
-nnoremap <Up> <Nop>
-nnoremap <Down> <Nop>
-nnoremap <Left> <Nop>
-nnoremap <Right> <Nop>
+let mapleader = " "
 
-" Allows for shifting code up and down (note: overrides the Join (J) command)
+" TAB MAPPINGS
+
+nnoremap Q :action CloseContent<CR>
+nnoremap ]b :tabnext<CR>
+nnoremap [b :tabprevious<CR>
+
+" Go to tab 1-9
+nnoremap <leader>1 :tabn 1<CR>
+nnoremap <leader>2 :tabn 2<CR>
+nnoremap <leader>3 :tabn 3<CR>
+nnoremap <leader>4 :tabn 4<CR>
+nnoremap <leader>5 :tabn 5<CR>
+nnoremap <leader>6 :tabn 6<CR>
+nnoremap <leader>7 :tabn 7<CR>
+nnoremap <leader>8 :tabn 8<CR>
+nnoremap <leader>9 :tabn 9<CR>
+
+" FILE EXPLORER MAPPINGS
+
+" Focus the ProjectToolWindow
+nnoremap <leader>e :action ActivateProjectToolWindow<CR>
+
+" TODO: Document some of the core keymappings with this
+" Navigating the Project tool window
+set NERDTree
+
+" FILE SEARCH
+" Find files by name
+nnoremap <leader>ff :action GotoFile<CR>
+
+" Search everywhere (files, symbols, actions, etc.)
+nnoremap <leader>fl :action SearchEverywhere<CR>
+
+" VISUAL MAPPINGS
+
+" Allows for shifting code up and down (note: override the Join (J) command
 nnoremap J :m .+1<CR>==
 nnoremap K :m .-2<CR>==
 vnoremap J :m '>+1<CR>gv=gv
@@ -15,14 +46,35 @@ nnoremap <Tab> >>
 nnoremap <S-Tab> <<
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+inoremap <S-Tab> <C-d>
 
-" Allows for navigation of IntelliJ tabs
-nnoremap <C-h> :tabprevious<CR>
-nnoremap <C-l> :tabnext<CR>
+" Vertical file navigation
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
+nnoremap { {zz
+nnoremap } }zz
 
-" Opening the ProjectToolWindow
-command! E :action ActivateProjectToolWindow
+" TEXT MANIPULATION MAPPINGS
 
-" Navigating the Project Tool Window
-set NERDTree
+" Search for the next occurrence of the term and center the screen
+nnoremap n nzzzv
+" Search for the previous occurrence of the term and center the screen
+nnoremap N Nzzzv
+
+" Search and replace word under cursor
+nnoremap <leader>s viw"zy:%s/<C-r>z//gI<Left><Left><Left>
+
+" Paste in visual mode without overwriting the default register
+xnoremap <leader>p "_dP
+
+" Yank to system clipboard
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+
+" Unbind arrow keys in normal mode to enforce hjkl navigation
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
 
