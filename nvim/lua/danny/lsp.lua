@@ -130,8 +130,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.keymap.set('n', '<leader>vca', vim.lsp.buf.code_action, opts) -- Open vim code actions menu
     vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts) -- Open diagnostics menu
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts) -- Go to next diagnostics item
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts) -- Go to prev diagnostics item
+    vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, opts) -- Go to next diagnostics item
+    vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, opts) -- Go to prev diagnostics item
 
     vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts) -- Show method signature
 
