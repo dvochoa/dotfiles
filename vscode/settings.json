@@ -11,7 +11,7 @@
     {
       "before": ["C-h"],
       "commands": ["workbench.action.previousEditor"]
-    },
+    }
   ],
   "vim.normalModeKeyBindings": [
     {
@@ -83,6 +83,6 @@
   "go.lintFlags": [
     "--fast"
   ],
-  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreview": false
 }
 

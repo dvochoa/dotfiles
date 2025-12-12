@@ -3,17 +3,34 @@
 	name = Danny Ochoa
 	email = danny@dannyochoa.net
 [alias]
-	qlog = "!f() { local cur_branch=$(git branch --show-current) && git log --oneline \"$cur_branch\" ^origin/main | cat; }; f"
-	qbranch = "!f() { git branch | cat; }; f"
-	pumpkin = rebase -i origin/main
-	st = status
-	sync = "!f() { local cur_branch=$(git branch --show-current) && echo \"Starting Sync\" && echo \"Stashing\" && git stash && echo \"Checking Out $1\" && git checkout \"$1\" && echo \"Pulling\" && git pull && echo \"Checking out ${cur_branch}\" && git checkout \"$cur_branch\" && echo \"Merging $1\" && git merge $1 && echo \"Unstashing\" && git stash pop && echo \"Sync Complete\"; }; f"
-	yoda = push -f
-	switchcreate = "!f() { git switch -c $1 && git push -u origin $1; }; f"
-	commitpush = "!f() { git commit -am \"$1\" && git push; }; f"
-	fixup = commit -a --fixup=HEAD
-	fixuppush = "!f() { git commit -a --fixup=HEAD && git push; }; f"
-	xl = log --graph --oneline --all --decorate
+  # Print current changelog to stdout
+  qlog = "!f() { local cur_branch=$(git branch --show-current) && git log --oneline \"$cur_branch\" ^origin/main | cat; }; f"
+  # Print all checked out branches to stdout
+  qbranch = "!f() { git branch | cat; }; f"
+  # Shorter rebase
+  pumpkin = rebase -i origin/main
+  st = status
+  # Sync with master/main
+  sync = "!f() { local cur_branch=$(git branch --show-current) && echo \"Starting Sync\" && echo \"Stashing\" && git stash && echo \"Checking Out $1\" && git checkout \"$1\" && echo \"Pulling\" && git pull && echo \"Checking out ${cur_branch}\" && git checkout \"$cur_branch\" && echo \"Merging $1\" && git merge \"$1\" && echo \"Unstashing\" && git stash pop && echo \"Sync Complete\"; }; f"
+  # Force push
+  yoda = push -f
+  # Switch to and create a new branch
+  switchcreate = "!f() { git switch -c $1 && git push -u origin $1; }; f"
+  # Commit and push
+  commitpush = "!f() { git commit -am \"$1\" && git push; }; f"
+  # Shorter fixup commit
+  fixup = commit -a --fixup=HEAD
+  # Fixup and push
+  fixuppush = "!f() { git commit -a --fixup=HEAD && git push; }; f"
+  # Display a visual representation of the commit history
+  xl = log --graph --oneline --all --decorate
+  # Adds a worktree as a sibling to the current repo, prefixed with the repo name as this is helpful when using
+  # worktrees across multiple repos
+  wta = "!f() { git worktree add -b $1 ../$(basename $(git rev-parse --show-toplevel))-$1 && git push -u origin $1; }; f"
+  # Remove a worktree located as a sibling to the current repo
+  wtr = "!f() { git worktree remove "../$1"; }; f"
+  # Shorter worktree list
+  wtl = worktree list
 [credential]
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
