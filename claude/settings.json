@@ -1,0 +1,33 @@
+{
+  "alwaysThinkingEnabled": true,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "enabledPlugins": {},
+  "hooks": {},
+  "permissions": {
+    "allow": [
+      "Read(~/.zshrc)",
+
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git status:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr diff:*)"
+    ],
+    "deny": [
+      "Read(./.env**)",
+      "Read(./secrets/**)"
+    ],
+    "ask": [],
+    "additionalDirectories": [
+      "~/Desktop/Work"
+    ]
+  },
+  "outputStyle": "Explanatory"
+}
