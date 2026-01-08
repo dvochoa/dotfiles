@@ -11,6 +11,7 @@ local lsps = {
   'pyright',
   'lua_ls',
   'gopls',
+  'jdtls'
 }
 
 -- Mason is used to install LSPs
