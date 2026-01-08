@@ -37,6 +37,7 @@ source $ZSH/oh-my-zsh.sh
 ## Aliases
 alias vim=nvim
 alias vi=nvim
+alias mvn-cc='mvn clean compile'
 
 ## Vim setup
 # Enable vi mode in the terminal
@@ -65,6 +66,13 @@ mkcd() {
 }
 
 ## Dependencies
+# pnpm
+export PNPM_HOME="/Users/danny/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
 # golang
 export PATH=$PATH:$(go env GOPATH)/bin
 
@@ -121,4 +129,3 @@ claude() {
   _load_nvm
   claude "$@"
 }
-

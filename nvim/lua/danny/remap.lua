@@ -18,8 +18,8 @@ which_key.add(telescope_mappings)
 local buffer_mappings = {
   {
     { "Q", "<cmd>bd<CR>", desc = "Close buffer" },
-    { "]b", "<cmd>bn<CR>", desc = "Next buffer"},
-    { "[b", "<cmd>bp<CR>", desc = "Previous buffer"},
+    { "]b", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer"},
+    { "[b", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer"},
     { "<leader>bp", "<Cmd>BufferLineMovePrev<CR>", desc = "Move buffer in bufferline left"},
     { "<leader>bn", "<Cmd>BufferLineMoveNext<CR>", desc = "Move buffer in bufferline right"}
   }
