@@ -15,9 +15,35 @@ local telescope_mappings = {
 
 which_key.add(telescope_mappings)
 
+-- Smart buffer close that skips special buffers (NvimTree, etc.)
+local function smart_buffer_close()
+  local current_buf = vim.api.nvim_get_current_buf()
+  local buffers = vim.api.nvim_list_bufs()
+
+  -- Find a valid buffer to switch to (not the current one, loaded, and not a special buffer)
+  local target_buf = nil
+  for _, buf in ipairs(buffers) do
+    if buf ~= current_buf
+       and vim.api.nvim_buf_is_loaded(buf)
+       and vim.bo[buf].buflisted
+       and vim.bo[buf].buftype == "" then
+      target_buf = buf
+      break
+    end
+  end
+
+  -- If we found a valid buffer, switch to it before closing
+  if target_buf then
+    vim.api.nvim_set_current_buf(target_buf)
+  end
+
+  -- Delete the original buffer
+  vim.api.nvim_buf_delete(current_buf, { force = false })
+end
+
 local buffer_mappings = {
   {
-    { "Q", "<cmd>bd<CR>", desc = "Close buffer" },
+    { "Q", smart_buffer_close, desc = "Close buffer" },
     { "]b", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer"},
     { "[b", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer"},
     { "<leader>bp", "<Cmd>BufferLineMovePrev<CR>", desc = "Move buffer in bufferline left"},
