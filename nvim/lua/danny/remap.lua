@@ -109,6 +109,18 @@ local text_manipulation_mappings = {
 
 which_key.add(text_manipulation_mappings)
 
+local quickfix_mappings = {
+  {
+    { "<leader>q", group = "Quickfix" },
+    { "<leader>qo", "<Cmd>copen<CR>", desc = "Open quickfix list" },
+    { "<leader>qc", "<Cmd>cclose<CR>", desc = "Close quickfix list" },
+    { "]q", "<Cmd>cnext<CR>", desc = "Next quickfix item" },
+    { "[q", "<Cmd>cprev<CR>", desc = "Previous quickfix item" },
+  }
+}
+
+which_key.add(quickfix_mappings)
+
 -- Unbind arrow keys in normal mode to enforce hjkl for navigation
 vim.keymap.set('n', '<Up>', '<Nop>')
 vim.keymap.set('n', '<Down>', '<Nop>')
