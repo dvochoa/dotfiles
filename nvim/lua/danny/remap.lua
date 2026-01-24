@@ -44,6 +44,7 @@ end
 local buffer_mappings = {
   {
     { "Q", smart_buffer_close, desc = "Close buffer" },
+    { "bda", "<Cmd>%bd<CR>", desc = "Close all buffers" },
     { "]b", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer"},
     { "[b", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer"},
     { "<leader>bp", "<Cmd>BufferLineMovePrev<CR>", desc = "Move buffer in bufferline left"},
@@ -87,6 +88,9 @@ local visual_mappings = {
     { "<C-d>", "<C-d>zz", desc = "Move Half Page Down"},
     { "{", "{zz", desc = "Move Paragraph Up"},
     { "}", "}zz", desc = "Move Paragraph Down"},
+
+    { "gg", "ggzz", desc = "Move to top of file"},
+    { "G", "Gzz", desc = "Move to end of file"},
   },
 }
 
@@ -96,6 +100,7 @@ local text_manipulation_mappings = {
   {
     { "n", "nzzzv", desc = "Search for the next occurance of the term"},
     { "N", "Nzzzv", desc = "Search for the previous occurance of the term"},
+    { "<Esc><Esc>", "<Cmd>noh<CR>", desc = "Clear search highlighting"},
 
     { "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", desc = "Search and replace word under cursor"},
 
@@ -109,11 +114,36 @@ local text_manipulation_mappings = {
 
 which_key.add(text_manipulation_mappings)
 
+-- Smart quickfix close that returns focus to a normal buffer (not nvim-tree)
+local function smart_quickfix_close()
+  -- Find the first normal buffer window (not special buffers like nvim-tree)
+  local target_win = nil
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local buftype = vim.bo[buf].buftype
+    local filetype = vim.bo[buf].filetype
+
+    -- Skip quickfix, nvim-tree, and other special windows
+    if buftype == "" and filetype ~= "NvimTree" then
+      target_win = win
+      break
+    end
+  end
+
+  -- Close quickfix
+  vim.cmd("cclose")
+
+  -- Return focus to normal buffer if found
+  if target_win then
+    vim.api.nvim_set_current_win(target_win)
+  end
+end
+
 local quickfix_mappings = {
   {
     { "<leader>q", group = "Quickfix" },
     { "<leader>qo", "<Cmd>copen<CR>", desc = "Open quickfix list" },
-    { "<leader>qc", "<Cmd>cclose<CR>", desc = "Close quickfix list" },
+    { "<leader>qc", smart_quickfix_close, desc = "Close quickfix list" },
     { "]q", "<Cmd>cnext<CR>", desc = "Next quickfix item" },
     { "[q", "<Cmd>cprev<CR>", desc = "Previous quickfix item" },
   }
