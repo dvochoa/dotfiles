@@ -1,21 +1,19 @@
 {
-  "alwaysThinkingEnabled": true,
   "attribution": {
     "commit": "",
     "pr": ""
   },
-  "enabledPlugins": {},
-  "hooks": {},
   "permissions": {
     "allow": [
-      "Read(~/.zshrc)",
-
+      "Read(**)",
       "Bash(grep:*)",
       "Bash(find:*)",
       "Bash(ls:*)",
       "Bash(mv:*)",
       "Bash(mkdir:*)",
-
+      "Bash(echo:*)",
+      "Bash(source:*)",
+      "Bash(which:*)",
       "Bash(git log:*)",
       "Bash(git diff:*)",
       "Bash(git status:*)",
@@ -31,5 +29,11 @@
       "~/Desktop/Work"
     ]
   },
-  "outputStyle": "Explanatory"
+  "hooks": {},
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true
+  },
+  "outputStyle": "Explanatory",
+  "alwaysThinkingEnabled": true
 }
