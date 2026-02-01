@@ -123,7 +123,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local opts = { buffer = ev.buf }
 
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts) -- Go to definition
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts) -- Hover documentation
+    vim.keymap.set('n', 'H', vim.lsp.buf.hover, opts) -- Hover documentation
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts) -- Go to declaration
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts) -- Find references
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts) -- Go to implementation

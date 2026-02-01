@@ -6,6 +6,9 @@
   "permissions": {
     "allow": [
       "Read(**)",
+      "Read(~/.claude/**)",
+      "WebSearch",
+      "WebFetch",
       "Bash(grep:*)",
       "Bash(find:*)",
       "Bash(ls:*)",
@@ -18,7 +21,12 @@
       "Bash(git diff:*)",
       "Bash(git status:*)",
       "Bash(gh pr view:*)",
-      "Bash(gh pr diff:*)"
+      "Bash(gh pr diff:*)",
+      "Bash(pnpm:*)",
+      "Bash(npm:*)",
+      "Bash(yarn:*)",
+      "Bash(node:*)",
+      "Bash(npx:*)"
     ],
     "deny": [
       "Read(./.env**)",
@@ -29,10 +37,27 @@
       "~/Desktop/Work"
     ]
   },
-  "hooks": {},
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/danny/dotfiles/claude/hooks/load-nvm.sh",
+            "statusMessage": "Loading nvm environment..."
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true
+    "frontend-design@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
   },
   "outputStyle": "Explanatory",
   "alwaysThinkingEnabled": true
