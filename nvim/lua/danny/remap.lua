@@ -41,6 +41,7 @@ local function smart_buffer_close()
   vim.api.nvim_buf_delete(current_buf, { force = false })
 end
 
+
 local buffer_mappings = {
   {
     { "Q", smart_buffer_close, desc = "Close buffer" },
@@ -52,10 +53,18 @@ local buffer_mappings = {
   }
 }
 
--- Add BufferLineGoToBuffer mappings for buffers 1-9
+-- Jump to Nth buffer by index
+local function goto_buffer_by_index(index)
+  local buffers = vim.fn.getbufinfo({buflisted = 1})
+  if buffers[index] then
+    vim.api.nvim_set_current_buf(buffers[index].bufnr)
+  end
+end
+
+-- Add mappings for jumping to buffers 1-9 by index
 for i = 1, 9 do
   table.insert(
-    buffer_mappings[1], { "<leader>" .. i, "<Cmd>BufferLineGoToBuffer " .. i .. "<CR>", desc = "Go to buffer " .. i }
+    buffer_mappings[1], { "<leader>" .. i, function() goto_buffer_by_index(i) end, desc = "Go to buffer " .. i }
   )
 end
 
@@ -100,6 +109,8 @@ local text_manipulation_mappings = {
   {
     { "n", "nzzzv", desc = "Search for the next occurance of the term"},
     { "N", "Nzzzv", desc = "Search for the previous occurance of the term"},
+    { "*", "*zzzv", desc = "Search forward for word under cursor"},
+    { "#", "#zzzv", desc = "Search backward for word under cursor"},
     { "<Esc><Esc>", "<Cmd>noh<CR>", desc = "Clear search highlighting"},
 
     { "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", desc = "Search and replace word under cursor"},
