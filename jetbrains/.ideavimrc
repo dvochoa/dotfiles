@@ -72,6 +72,23 @@ nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>Y "+Y
 
+" LSP MAPPINGS
+nmap gd <Action>(GotoDeclaration)
+nmap gD <Action>(GotoDeclaration)
+nmap gr <Action>(FindUsages)
+nmap gi <Action>(GotoImplementation)
+nmap H <Action>(QuickJavaDoc)
+nmap gn <Action>(RenameElement)
+
+nmap <leader>vca <Action>(ShowIntentionActions)
+nmap <leader>vd <Action>(ShowErrorDescription)
+nmap ]d <Action>(GotoNextError)
+nmap [d <Action>(GotoPreviousError)
+
+imap <C-h> <Action>(ParameterInfo)
+
+nmap <leader>f <Action>(ReformatCode)
+
 " Unbind arrow keys in normal mode to enforce hjkl navigation
 nnoremap <Up> <Nop>
 nnoremap <Down> <Nop>
