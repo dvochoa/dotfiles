@@ -13,7 +13,7 @@ return {
     require('bufferline').setup {
       options = {
         numbers = "ordinal",
-        -- Should the tab close icon after hover
+        -- Show the tab close icon after hover
         hover = {
           enabled = true,
           delay = 100,
