@@ -11,7 +11,7 @@
   pumpkin = rebase -i origin/main
   st = status
   # Sync with master/main
-  sync = "!f() { local cur_branch=$(git branch --show-current) && echo \"Starting Sync\" && echo \"Stashing\" && git stash && echo \"Checking Out $1\" && git checkout \"$1\" && echo \"Pulling\" && git pull && echo \"Checking out ${cur_branch}\" && git checkout \"$cur_branch\" && echo \"Merging $1\" && git merge \"$1\" && echo \"Unstashing\" && git stash pop && echo \"Sync Complete\"; }; f"
+  sync = "!f() { local cur_branch=$(git branch --show-current) && echo \"Starting Sync\" && echo \"Stashing\" && git stash && echo \"Checking out $1\" && git checkout \"$1\" && echo \"Pulling\" && git pull && echo \"Checking out ${cur_branch}\" && git checkout \"$cur_branch\" && echo \"Merging $1\" && git merge \"$1\" && echo \"Unstashing\" && git stash pop && echo \"Sync Complete\"; }; f"
   # Force push
   yoda = push -f
   # Switch to and create a new branch
@@ -24,11 +24,10 @@
   fixuppush = "!f() { git commit -a --fixup=HEAD && git push; }; f"
   # Display a visual representation of the commit history
   xl = log --graph --oneline --all --decorate
-  # Adds a worktree as a sibling to the current repo, prefixed with the repo name as this is helpful when using
-  # worktrees across multiple repos
+  # Adds a worktree as a sibling to the current repo, prefixed with the repo name
   wta = "!f() { git worktree add -b $1 ../$(basename $(git rev-parse --show-toplevel))-$1 && git push -u origin $1; }; f"
-  # Remove a worktree located as a sibling to the current repo
-  wtr = "!f() { git worktree remove "../$1"; }; f"
+  # Remove a worktree located as a sibling to the current repo, prefixed with the repo name
+  wtr = "!f() { git worktree remove ../$(basename $(git rev-parse --show-toplevel))-$1 && git branch -D $1; }; f"
   # Shorter worktree list
   wtl = worktree list
 [credential]
