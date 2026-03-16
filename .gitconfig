@@ -30,6 +30,8 @@
   wtr = "!f() { git worktree remove ../$(basename $(git rev-parse --show-toplevel))-$1 && git branch -D $1; }; f"
   # Shorter worktree list
   wtl = worktree list
+  # Delete all local branches except the configured defaultBranch and the current branch
+  branchclear = "!f() { local default=$(git config init.defaultBranch) && local branches=$(git branch | grep -vE '^\\*|^  '\"$default\"'$') && [ -n \"$branches\" ] && echo \"$branches\" | xargs git branch -D || echo 'No branches to remove'; }; f"
 [credential]
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
