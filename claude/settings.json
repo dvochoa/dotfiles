@@ -45,7 +45,12 @@
       "Plugin:playwright:browser_hover",
       "Plugin:playwright:browser_select_options",
       "Plugin:playwright:browser_drag",
-      "Plugin:playwright:browser_fill_form"
+      "Plugin:playwright:browser_fill_form",
+      "Plugin:next-devtools:init",
+      "Plugin:next-devtools:nextjs_docs",
+      "Plugin:next-devtools:browser_eval",
+      "Plugin:next-devtools:nextjs_index",
+      "Plugin:next-devtools:nextjs_call"
     ],
     "deny": [
       "Read(./.env**)",

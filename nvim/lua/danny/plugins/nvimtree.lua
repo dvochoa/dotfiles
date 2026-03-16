@@ -7,8 +7,22 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   config = function()
+    local api = require("nvim-tree.api")
+
+    local function on_attach(bufnr)
+      -- Load all default mappings first
+      api.config.mappings.default_on_attach(bufnr)
+
+      -- Open file but return focus to nvim-tree when pressing "o"
+      vim.keymap.set("n", "o", function()
+        api.node.open.edit()
+        api.tree.focus()
+      end, { buffer = bufnr, noremap = true, silent = true, desc = "Open file, keep focus in tree" })
+    end
+
     require("nvim-tree").setup(
       {
+        on_attach = on_attach,
         view = {
           -- Width of File Explorer expands to fit content
           adaptive_size = true,

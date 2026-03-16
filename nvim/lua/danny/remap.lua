@@ -46,23 +46,22 @@ local function smart_buffer_close()
   vim.api.nvim_buf_delete(current_buf, { force = false })
 end
 
-
 local buffer_mappings = {
   {
     { "Q", smart_buffer_close, desc = "Close buffer" },
     { "bda", "<Cmd>%bd<CR>", desc = "Close all buffers" },
-    { "]b", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer"},
-    { "[b", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer"},
-    { "<leader>bp", "<Cmd>BufferLineMovePrev<CR>", desc = "Move buffer in bufferline left"},
-    { "<leader>bn", "<Cmd>BufferLineMoveNext<CR>", desc = "Move buffer in bufferline right"}
+    { "b]", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer"},
+    { "b[", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer"},
+    { "bp", "<Cmd>BufferLineMovePrev<CR>", desc = "Move buffer in bufferline left"},
+    { "bn", "<Cmd>BufferLineMoveNext<CR>", desc = "Move buffer in bufferline right"}
   }
 }
 
--- Jump to Nth buffer by index
+-- Jump to Nth buffer by index, using bufferline's display order
 local function goto_buffer_by_index(index)
-  local buffers = vim.fn.getbufinfo({buflisted = 1})
-  if buffers[index] then
-    vim.api.nvim_set_current_buf(buffers[index].bufnr)
+  local elements = require("bufferline").get_elements().elements
+  if elements[index] then
+    vim.api.nvim_set_current_buf(elements[index].id)
   end
 end
 

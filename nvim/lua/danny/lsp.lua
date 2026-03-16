@@ -122,11 +122,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local opts = { buffer = ev.buf }
 
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts) -- Go to definition
+    local function jump_centered(jump_fn)
+      jump_fn()
+      vim.api.nvim_create_autocmd('CursorMoved', {
+        once = true,
+        callback = function() vim.cmd('norm! zz') end,
+      })
+    end
+
+    vim.keymap.set('n', 'gd', function() jump_centered(vim.lsp.buf.definition) end, opts) -- Go to definition
     vim.keymap.set('n', 'H', vim.lsp.buf.hover, opts) -- Hover documentation
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts) -- Go to declaration
+    vim.keymap.set('n', 'gD', function() jump_centered(vim.lsp.buf.declaration) end, opts) -- Go to declaration
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts) -- Find references
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts) -- Go to implementation
+    vim.keymap.set('n', 'gi', function() jump_centered(vim.lsp.buf.implementation) end, opts) -- Go to implementation
     vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts) -- Rename the current entity
 
     vim.keymap.set('n', '<leader>vca', vim.lsp.buf.code_action, opts) -- Open vim code actions menu
