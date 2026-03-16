@@ -63,6 +63,17 @@ vif() {
   fi
 }
 
+# Start a new tmux session with a prompted name (mirrors <leader>C behavior)
+tmux() {
+  if [[ $# -eq 0 ]]; then
+    echo -n "Session name: "
+    read session_name
+    command tmux new -s "${session_name:-default}"
+  else
+    command tmux "$@"
+  fi
+}
+
 # Make and then cd into a directory
 mkcd() {
   \mkdir -p "$1"
