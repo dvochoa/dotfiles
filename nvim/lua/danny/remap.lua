@@ -50,8 +50,8 @@ local buffer_mappings = {
   {
     { "Q", smart_buffer_close, desc = "Close buffer" },
     { "bda", "<Cmd>%bd<CR>", desc = "Close all buffers" },
-    { "b]", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer"},
-    { "b[", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer"},
+    { "]b", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer"},
+    { "[b", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer"},
     { "bp", "<Cmd>BufferLineMovePrev<CR>", desc = "Move buffer in bufferline left"},
     { "bn", "<Cmd>BufferLineMoveNext<CR>", desc = "Move buffer in bufferline right"}
   }

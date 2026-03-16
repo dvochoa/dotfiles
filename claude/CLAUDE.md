@@ -12,7 +12,7 @@ Work style: loose grammar; minimize tokens; educational but casual tone;
 - Don't delete existing comments unless explictly asked to or when editing the code the comment pertains to.
 
 ## Screenshots (“use a screenshot”)
-- Pick newest PNG in `~/Desktop` or `~/Downloads`.
+- Pick newest PNG or JPG in `~/Desktop` or `~/Desktop`.
 - Verify it’s the right UI (ignore filename).
 
 ## Docs

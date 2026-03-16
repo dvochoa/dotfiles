@@ -6,6 +6,10 @@
   "permissions": {
     "allow": [
       "Read(**)",
+      "Read(~/Desktop/*.png)",
+      "Read(~/Downloads/*.png)",
+      "Read(~/Desktop/*.jpg)",
+      "Read(~/Downloads/*.jpg)",
       "Read(~/.claude/**)",
       "WebSearch",
       "WebFetch",
@@ -25,6 +29,7 @@
       "Bash(git status:*)",
       "Bash(gh pr diff:*)",
       "Bash(gh pr edit:*)",
+      "Bash(gh pr list:*)",
       "Bash(gh pr view:*)",
       "Bash(pnpm:*)",
       "Bash(npm:*)",
