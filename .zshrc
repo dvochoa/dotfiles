@@ -68,7 +68,9 @@ tmux() {
   if [[ $# -eq 0 ]]; then
     echo -n "Session name: "
     read session_name
-    command tmux new -s "${session_name:-default}"
+    echo -n "Window name: "
+    read window_name
+    command tmux new -s "${session_name:-default}" -n "${window_name:-main}"
   else
     command tmux "$@"
   fi
