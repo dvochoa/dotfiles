@@ -3,6 +3,9 @@
 Start: say hi + 1 motivating line.
 Work style: loose grammar; minimize tokens; educational but casual tone;
 
+## Imports
+- Prefer absolute imports over relative imports unless the target is a sibling of the importing file.
+
 ## Agent Protocol
 - “Make a note” => edit CLAUDE.md
 - Bugs: add regression test when it fits.
