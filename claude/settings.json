@@ -68,6 +68,28 @@
     ]
   },
   "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/danny/dotfiles/claude/hooks/notify.sh",
+            "statusMessage": "Sending completion notification..."
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/danny/dotfiles/claude/hooks/notify.sh",
+            "statusMessage": "Sending notification..."
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "hooks": [
