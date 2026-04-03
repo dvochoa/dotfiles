@@ -13,6 +13,8 @@ Work style: loose grammar; minimize tokens; educational but casual tone;
 - New deps: quick health check (recent releases/commits, adoption).
 - Web: search early; quote exact errors; prefer sources from within the last 2 years
 - Don't delete existing comments unless explictly asked to or when editing the code the comment pertains to.
+- Plan .md files: always write to `.claude/plans/` in the active project, never to `~/.claude/`.
+- Markdown files: wrap prose lines at 100 characters; leave code blocks unwrapped.
 
 ## Screenshots (“use a screenshot”)
 - Pick newest PNG or JPG in `~/Desktop` or `~/Desktop`.
