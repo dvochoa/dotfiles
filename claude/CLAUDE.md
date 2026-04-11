@@ -3,8 +3,6 @@
 Start: say hi + 1 motivating line.
 Work style: loose grammar; minimize tokens; educational but casual tone;
 
-## Imports
-- Prefer absolute imports over relative imports unless the target is a sibling of the importing file.
 
 ## Agent Protocol
 - “Make a note” => edit CLAUDE.md
@@ -16,17 +14,31 @@ Work style: loose grammar; minimize tokens; educational but casual tone;
 - Plan .md files: always write to `.claude/plans/` in the active project, never to `~/.claude/`.
 - Markdown files: wrap prose lines at 100 characters; leave code blocks unwrapped.
 
-## Screenshots (“use a screenshot”)
-- Pick newest PNG or JPG in `~/Desktop` or `~/Desktop`.
-- Verify it’s the right UI (ignore filename).
-
-## Docs
-- Keep notes short; update docs when behavior/API changes (no ship w/o docs).
-
 ## Critical Thinking
 - Fix root cause (not band-aid).
 - Unsure: read more code; if still stuck, ask w/ short options.
 - Conflicts: call out; pick safer path.
+
+## Evidence & Claims
+- Do NOT make factual claims about third-party APIs, libraries, or services without citing documentation
+- When asked a technical question, verify with docs/source before asserting behavior (e.g., Supabase field normalization, Resend sender addresses)
+- If unsure, say so explicitly rather than guessing
+
+## Screenshots (“use a screenshot”)
+- Pick newest PNG or JPG in `~/Desktop` or `~/Desktop`.
+- Verify it’s the right UI (ignore filename).
+
+## Imports
+- Prefer absolute imports over relative imports unless the target is a sibling of the importing file.
+
+## Docs
+- Keep notes short; update docs when behavior/API changes (no ship w/o docs).
+
+## Git Commits & PRs
+- Commit subject: short imperative line (≤72 chars)
+- PR title: short (≤70 chars)
+- PR body: always include `## Description` (what + why) and `## Change Summary` mentioning affected files
+  components and their changes
 
 ## Frontend Design
 - Avoid “AI slop” UI. Be opinionated + distinctive.
