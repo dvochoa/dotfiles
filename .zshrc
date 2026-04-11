@@ -146,3 +146,6 @@ claude() {
   _load_nvm
   claude "$@"
 }
+
+# AI workflow helpers (start-task, list-tasks, kill-task)
+source "$HOME/ai_workflow.sh"
