@@ -39,6 +39,8 @@ Work style: loose grammar; minimize tokens; educational but casual tone;
 - PR title: short (≤70 chars)
 - PR body: always include `## Description` (what + why) and `## Change Summary` mentioning affected files
   components and their changes
+- After pushing: if no PR exists for the branch, open one with the standard title + body. If a PR
+  exists, update its description when the new commits materially change what's shipping.
 
 ## Frontend Design
 - Avoid “AI slop” UI. Be opinionated + distinctive.
