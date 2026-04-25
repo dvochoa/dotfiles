@@ -55,10 +55,12 @@ start-task() {
   command tmux split-window -t ":${branch}.0" -h -p 40 -c "$worktree_path"
   # Split the right column in half vertically to make the bottom terminal pane (pane 2)
   command tmux split-window -t ":${branch}.1" -v -p 50 -c "$worktree_path"
+  # Wait for shells to initialize (oh-my-zsh, etc.) before sending keystrokes
+  sleep 2
   # Type "vim ." into the left pane and press Enter
   command tmux send-keys -t ":${branch}.0" "vim ." Enter
   # Type the claude command into the top-right pane; printf '%q' safely escapes the task string
-  command tmux send-keys -t ":${branch}.1" "claude $(printf '%q' "$task")" Enter
+  command tmux send-keys -t ":${branch}.1" "claude --permission-mode dontAsk $(printf '%q' "$task")" Enter
   # Move focus to the claude pane
   command tmux select-pane -t ":${branch}.1"
   echo "Spawned '$branch' → $worktree_path"

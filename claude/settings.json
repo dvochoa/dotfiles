@@ -3,6 +3,9 @@
     "commit": "",
     "pr": ""
   },
+  "enabledMcpjsonServers": [
+    "next-devtools"
+  ],
   "permissions": {
     "allow": [
       "Read(**)",
@@ -22,6 +25,20 @@
       "Bash(echo:*)",
       "Bash(source:*)",
       "Bash(which:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(cat:*)",
+      "Bash(wc:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(cut:*)",
+      "Bash(tr:*)",
+      "Bash(diff:*)",
+      "Bash(pwd:*)",
+      "Bash(date:*)",
+      "Bash(basename:*)",
+      "Bash(dirname:*)",
+      "Bash(file:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git diff:*)",
@@ -117,5 +134,6 @@
     "enabled": true,
     "mode": "hold"
   },
+  "editorMode": "vim",
   "voiceEnabled": true
 }
