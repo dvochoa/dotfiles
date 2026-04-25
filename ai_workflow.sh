@@ -112,3 +112,26 @@ kill-task() {
     echo "Closed tmux window: $branch"
   fi
 }
+
+# --- Zsh tab completions ---
+
+# _kill_task_complete — zsh calls this on <TAB> after "kill-task" to list candidates
+_kill_task_complete() {
+  # Silently bail if not in a git repo
+  local repo_root
+  repo_root=$(_get_repo_root 2>/dev/null) || return
+
+  local branches=()
+  # Read each worktree line, skipping the main one (tail -n +2)
+  # Process substitution < <(...) avoids a subshell so $branches survives the loop
+  while IFS= read -r line; do
+    # Regex captures the branch name between [brackets]; zsh stores it in $match[1]
+    if [[ "$line" =~ '\[(.+)\]' ]]; then
+      branches+=("${match[1]}")
+    fi
+  done < <(git -C "$repo_root" worktree list | tail -n +2)
+  # compadd -a registers the array as completion candidates; zsh handles prefix matching
+  compadd -a branches
+}
+# Wire up _kill_task_complete as the <TAB> handler for kill-task
+compdef _kill_task_complete kill-task
