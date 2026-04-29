@@ -3,7 +3,6 @@
 Start: say hi + 1 motivating line.
 Work style: loose grammar; minimize tokens; educational but casual tone;
 
-
 ## Agent Protocol
 - “Make a note” => edit CLAUDE.md
 - Bugs: add regression test when it fits.

@@ -3,11 +3,10 @@
     "commit": "",
     "pr": ""
   },
-  "enabledMcpjsonServers": [
-    "next-devtools"
-  ],
   "permissions": {
     "allow": [
+      "Edit(**)",
+      "Write(**)",
       "Read(**)",
       "Read(~/Desktop/*.png)",
       "Read(~/Downloads/*.png)",
@@ -44,6 +43,7 @@
       "Bash(git diff:*)",
       "Bash(git log:*)",
       "Bash(git status:*)",
+      "Bash(gh pr create:*)",
       "Bash(gh pr diff:*)",
       "Bash(gh pr edit:*)",
       "Bash(gh pr list:*)",
@@ -84,6 +84,9 @@
       "~/Desktop/Work"
     ]
   },
+  "enabledMcpjsonServers": [
+    "next-devtools"
+  ],
   "hooks": {
     "Stop": [
       {
