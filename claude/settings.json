@@ -138,5 +138,6 @@
     "mode": "hold"
   },
   "editorMode": "vim",
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "skipAutoPermissionPrompt": true
 }
