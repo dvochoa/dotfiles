@@ -21,15 +21,15 @@ _get_worktree_path() {
   echo "$(dirname "$repo_root")/$(basename "$repo_root")-${branch}"
 }
 
-# start-task <branch> "<task>" — create worktree + tmux window + launch claude
+# start-task <branch> ["<task>"] — create worktree + tmux window + launch claude
 start-task() {
   # Store the two positional arguments into named variables
   local branch="$1"
   local task="$2"
 
-  # Bail early if either argument is missing (-z means "empty string")
-  if [[ -z "$branch" || -z "$task" ]]; then
-    echo "Usage: start-task <branch-name> \"<task description>\""
+  # Bail early if branch is missing
+  if [[ -z "$branch" ]]; then
+    echo "Usage: start-task <branch-name> [\"<task description>\"]"
     return 1
   fi
 
@@ -59,8 +59,11 @@ start-task() {
   sleep 2
   # Type "vim ." into the left pane and press Enter
   command tmux send-keys -t ":${branch}.0" "vim ." Enter
-  # Type the claude command into the top-right pane; printf '%q' safely escapes the task string
-  command tmux send-keys -t ":${branch}.1" "claude --permission-mode dontAsk $(printf '%q' "$task")" Enter
+  # Build the claude command — include the task only if one was provided
+  local claude_cmd="claude --permission-mode dontAsk"
+  [[ -n "$task" ]] && claude_cmd+=" $(printf '%q' "$task")"
+  # Type the claude command into the top-right pane
+  command tmux send-keys -t ":${branch}.1" "$claude_cmd" Enter
   # Move focus to the claude pane
   command tmux select-pane -t ":${branch}.1"
   echo "Spawned '$branch' → $worktree_path"
