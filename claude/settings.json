@@ -115,7 +115,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/danny/dotfiles/claude/hooks/load-nvm.sh",
+            "command": "/Users/danny/dotfiles/claude/hooks/load_nvm.sh",
             "statusMessage": "Loading nvm environment..."
           }
         ]
