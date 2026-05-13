@@ -37,6 +37,14 @@ vim.lsp.config['*'] = {
   capabilities = capabilities,
 }
 
+-- OmniSharp: force ARM64 execution (nvim runs under Rosetta but dotnet is native ARM64)
+vim.lsp.config.omnisharp = {
+  cmd = {
+    'arch', '-arm64', 'dotnet',
+    vim.fn.expand('~/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll'),
+  },
+}
+
 -- Configure lua_ls with Neovim-specific settings
 vim.lsp.config.lua_ls = {
   cmd = { 'lua-language-server' },
