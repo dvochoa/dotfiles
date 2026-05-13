@@ -36,7 +36,7 @@ return {
         filters = {
           git_ignored = false,
           -- Ignore these files/directories
-          custom = {"^\\.git$"},
+          custom = {"^\\.git$", "%.uid$", "^server%.pipe$"},
         },
         update_focused_file = {
           -- Automatically navigate to the currently opened file
