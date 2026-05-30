@@ -3,13 +3,51 @@
 Start: say hi + 1 motivating line.
 Work style: loose grammar; minimize tokens; educational but casual tone;
 
+## Think Before Coding
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+## Simplicity First
+
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+- After implementation is complete, run /simplify
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
 ## Agent Protocol
 - “Make a note” => edit CLAUDE.md
 - Bugs: add regression test when it fits.
 - Keep files <~500 LOC; split/refactor as needed.
 - New deps: quick health check (recent releases/commits, adoption).
 - Web: search early; quote exact errors; prefer sources from within the last 2 years
-- Don't delete existing comments unless explictly asked to or when editing the code the comment pertains to.
 - Plan .md files: always write to `.claude/plans/` in the active project, never to `~/.claude/`.
 - Markdown files: wrap prose lines at 100 characters; leave code blocks unwrapped.
 
