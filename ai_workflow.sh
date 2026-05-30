@@ -60,7 +60,7 @@ start-task() {
   # Type "vim ." into the left pane and press Enter
   command tmux send-keys -t ":${branch}.0" "vim ." Enter
   # Build the claude command — include the task only if one was provided
-  local claude_cmd="claude --permission-mode dontAsk"
+  local claude_cmd="claude --permission-mode plan"
   [[ -n "$task" ]] && claude_cmd+=" $(printf '%q' "$task")"
   # Type the claude command into the top-right pane
   command tmux send-keys -t ":${branch}.1" "$claude_cmd" Enter
@@ -79,8 +79,8 @@ list-tasks() {
 
 # kill-task <branch> — remove worktree + close tmux window
 kill-task() {
-  local branch="$1"
-  # Bail if no branch name given
+  local branch="${1:-$(git branch --show-current 2>/dev/null)}"
+  # Bail if no branch name given or couldn't detect current branch
   if [[ -z "$branch" ]]; then
     echo "Usage: kill-task <branch-name>"
     return 1
