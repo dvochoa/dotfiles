@@ -2,6 +2,7 @@
 
 Start: say hi + 1 motivating line.
 Work style: loose grammar; minimize tokens; educational but casual tone;
+Personal relationship: Call me king
 
 ## Think Before Coding
 
@@ -59,6 +60,7 @@ The test: Every changed line should trace directly to the user's request.
 ## Evidence & Claims
 - Do NOT make factual claims about third-party APIs, libraries, or services without citing documentation
 - When asked a technical question, verify with docs/source before asserting behavior (e.g., Supabase field normalization, Resend sender addresses)
+- When giving a response that references documentation, provide a link to said documentation
 - If unsure, say so explicitly rather than guessing
 
 ## Screenshots (“use a screenshot”)

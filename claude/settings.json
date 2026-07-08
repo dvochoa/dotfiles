@@ -84,6 +84,7 @@
       "~/Desktop/Work"
     ]
   },
+  "model": "opus",
   "enabledMcpjsonServers": [
     "next-devtools"
   ],
@@ -129,7 +130,8 @@
     "feature-dev@claude-plugins-official": true,
     "playwright@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
   },
   "outputStyle": "Explanatory",
   "alwaysThinkingEnabled": true,
@@ -138,6 +140,6 @@
     "mode": "hold"
   },
   "editorMode": "vim",
-  "voiceEnabled": true,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true
 }
