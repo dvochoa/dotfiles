@@ -5,7 +5,7 @@ set -euo pipefail
 
 # List of Homebrew formulae to install
 packages=(
-  bat fd fzf gh git maccy neovim ripgrep tmux zsh-syntax-highlighting
+  bat fd fzf gh git maccy neovim ripgrep tmux tree-sitter-cli zsh-syntax-highlighting
 )
 
 # List of Homebrew casks to install
