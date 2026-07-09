@@ -81,8 +81,8 @@ start-task() {
   command tmux new-window -n "$branch" -c "$worktree_path"
   # Split the window with a right column taking 40% of the width (pane 1)
   command tmux split-window -t ":${branch}.0" -h -p 40 -c "$worktree_path"
-  # Split the right column in half vertically to make the bottom terminal pane (pane 2)
-  command tmux split-window -t ":${branch}.1" -v -p 50 -c "$worktree_path"
+  # Split the right column so the bottom terminal pane (pane 2) takes 1/3, claude keeps 2/3
+  command tmux split-window -t ":${branch}.1" -v -p 33 -c "$worktree_path"
   # Wait for shells to initialize (oh-my-zsh, etc.) before sending keystrokes
   sleep 2
   # Type "vim ." into the left pane and press Enter
