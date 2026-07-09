@@ -21,23 +21,51 @@ _get_worktree_path() {
   echo "$(dirname "$repo_root")/$(basename "$repo_root")-${branch}"
 }
 
-# start-task <branch> ["<task>"] — create worktree + tmux window + launch claude
+# start-task <branch> ["<task>"] [-m plan|auto] — create worktree + tmux window + launch claude
+#   -m, --mode  claude permission mode: "plan" (default) or "auto" (acceptEdits)
 start-task() {
-  # Store the two positional arguments into named variables
-  local branch="$1"
-  local task="$2"
-
-  # Bail early if branch is missing
-  if [[ -z "$branch" ]]; then
-    echo "Usage: start-task <branch-name> [\"<task description>\"]"
-    return 1
-  fi
-
   # Bail if not inside a tmux session
   if [[ -z "$TMUX" ]]; then
     echo "start-task: must be run inside a tmux session"
     return 1
   fi
+
+  # Branch is always the first positional arg
+  local branch="$1"
+
+  # Bail early if branch is missing
+  if [[ -z "$branch" ]]; then
+    echo "Usage: start-task <branch-name> [\"<task description>\"] [-m plan|auto]"
+    return 1
+  fi
+  shift
+
+  # Parse the remaining args: an optional task string and an optional -m/--mode flag
+  local task=""
+  local mode="plan"  # default permission mode
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -m|--mode)
+        mode="$2"
+        shift 2
+        ;;
+      *)
+        task="$1"
+        shift
+        ;;
+    esac
+  done
+
+  # Translate the friendly mode name into claude's --permission-mode value
+  local permission_mode
+  case "$mode" in
+    plan) permission_mode="plan" ;;
+    auto) permission_mode="acceptEdits" ;;
+    *)
+      echo "start-task: invalid mode '$mode' (expected 'plan' or 'auto')"
+      return 1
+      ;;
+  esac
 
   local repo_root
   repo_root=$(_get_repo_root) || return 1
@@ -60,7 +88,7 @@ start-task() {
   # Type "vim ." into the left pane and press Enter
   command tmux send-keys -t ":${branch}.0" "vim ." Enter
   # Build the claude command — include the task only if one was provided
-  local claude_cmd="claude --permission-mode plan"
+  local claude_cmd="claude --permission-mode $permission_mode"
   [[ -n "$task" ]] && claude_cmd+=" $(printf '%q' "$task")"
   # Type the claude command into the top-right pane
   command tmux send-keys -t ":${branch}.1" "$claude_cmd" Enter
