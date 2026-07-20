@@ -94,7 +94,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/danny/dotfiles/claude/hooks/notify.sh",
+            "command": "/Users/danny/dotfiles/agents/hooks/notify.sh",
             "statusMessage": "Sending completion notification..."
           }
         ]
@@ -105,7 +105,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/danny/dotfiles/claude/hooks/notify.sh",
+            "command": "/Users/danny/dotfiles/agents/hooks/notify.sh",
             "statusMessage": "Sending notification..."
           }
         ]
@@ -140,6 +140,8 @@
     "mode": "hold"
   },
   "editorMode": "vim",
+  "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "tui": "fullscreen"
 }
