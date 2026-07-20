@@ -1,0 +1,6 @@
+interface:
+  display_name: "Iterate"
+  short_description: "Address pull-request feedback and ship"
+  default_prompt: "Use $iterate to address review feedback on the current pull request."
+policy:
+  allow_implicit_invocation: false
