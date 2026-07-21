@@ -12,6 +12,12 @@ Steps:
    - If no: create one with `gh pr create` using the standard title + body format.
 5. Output the PR URL.
 
+Ground the body in the real diff. Before writing it, get the actual changed-file list with
+`gh pr diff --name-only` (or `git diff main...HEAD --name-only`). Every file and change named in
+the body must appear in that list — do not describe work from other branches, and do not leave
+stray session URLs or scratch links in the body. If the diff contradicts what you expected to
+ship, stop and surface it rather than describing the intent.
+
 PR body format:
 ## Description
 [what changed and why]
