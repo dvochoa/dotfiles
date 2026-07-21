@@ -5,12 +5,12 @@ set -euo pipefail
 
 # List of Homebrew formulae to install
 packages=(
-  bat fd fzf gh git maccy neovim ripgrep tmux tree-sitter-cli zsh-syntax-highlighting
+  bat fd fzf gh git maccy neovim node ripgrep tmux tree-sitter-cli uv zsh-syntax-highlighting
 )
 
 # List of Homebrew casks to install
 casks=(
-  rectangle hamed-elfayome/claude-usage/claude-usage-tracker
+  codex rectangle hamed-elfayome/claude-usage/claude-usage-tracker
 )
 
 echo "Updating Homebrew..."
@@ -39,4 +39,3 @@ for cask in "${casks[@]}"; do
 done
 
 echo "All packages installed or already present!"
-
