@@ -1,5 +1,4 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 
 export PATH="$HOME/.local/bin:$PATH"
 # Add mason bin to path so that other entities like Claude Code have access to LSP binaries
@@ -94,7 +93,7 @@ esac
 export PATH=$PATH:$(go env GOPATH)/bin
 
 # postgres
-export PATH="/usr/local/opt/postgresql@14/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@14/bin:$PATH"
 
 # fzf
 # Configure fzf key bindings and fuzzy completion
