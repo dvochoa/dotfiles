@@ -1,168 +1,19 @@
-# --- Parallel Claude task workflow ---
+# --- Parallel AI task workflow loader ---
+# Sourced from ~/.zshrc via the ~/ai_workflow.sh symlink. Finds its own real
+# location (following that symlink) and sources the split command files from the
+# sibling ai_workflow/ directory.
 
-# _get_repo_root — prints the main repo root (not a worktree) or returns 1
-# Uses --git-common-dir to always resolve back to the main repo, even when
-# called from inside a worktree where --show-toplevel would return the worktree path.
-_get_repo_root() {
-  local git_common_dir
-  git_common_dir=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || {
-    echo "${FUNCNAME[1]}: not in a git repo" >&2
-    return 1
-  }
-  # --git-common-dir returns the .git directory; dirname gives us the repo root
-  dirname "$git_common_dir"
-}
+# Figure out where this file really lives. When a file is sourced, $0 is its
+# path — here ~/ai_workflow.sh, which is a symlink into the repo. Two zsh
+# modifiers turn that into the directory we want:
+#   :A  resolve the symlink to a real, absolute path
+#   :h  strip to the containing directory (like `dirname`)
+_ai_workflow_repo_dir="${0:A:h}"
+_ai_workflow_dir="$_ai_workflow_repo_dir/ai_workflow"
 
-# _get_worktree_path <repo_root> <branch> — prints the sibling worktree path
-# e.g. ~/code/myapp + feature-x → ~/code/myapp-feature-x
-_get_worktree_path() {
-  local repo_root="$1"
-  local branch="$2"
-  echo "$(dirname "$repo_root")/$(basename "$repo_root")-${branch}"
-}
-
-# start-task <branch> ["<task>"] [-m plan|auto] — create worktree + tmux window + launch claude
-#   -m, --mode  claude permission mode: "plan" (default) or "auto" (acceptEdits)
-start-task() {
-  # Bail if not inside a tmux session
-  if [[ -z "$TMUX" ]]; then
-    echo "start-task: must be run inside a tmux session"
-    return 1
-  fi
-
-  # Branch is always the first positional arg
-  local branch="$1"
-
-  # Bail early if branch is missing
-  if [[ -z "$branch" ]]; then
-    echo "Usage: start-task <branch-name> [\"<task description>\"] [-m plan|auto]"
-    return 1
-  fi
-  shift
-
-  # Parse the remaining args: an optional task string and an optional -m/--mode flag
-  local task=""
-  local mode="plan"  # default permission mode
-  while [[ $# -gt 0 ]]; do
-    case "$1" in
-      -m|--mode)
-        mode="$2"
-        shift 2
-        ;;
-      *)
-        task="$1"
-        shift
-        ;;
-    esac
-  done
-
-  # Translate the friendly mode name into claude's --permission-mode value
-  local permission_mode
-  case "$mode" in
-    plan) permission_mode="plan" ;;
-    auto) permission_mode="acceptEdits" ;;
-    *)
-      echo "start-task: invalid mode '$mode' (expected 'plan' or 'auto')"
-      return 1
-      ;;
-  esac
-
-  local repo_root
-  repo_root=$(_get_repo_root) || return 1
-
-  local worktree_path
-  worktree_path=$(_get_worktree_path "$repo_root" "$branch")
-
-  # Create a new git worktree at that path on a new branch.
-  # A worktree is a second checkout of the repo — same .git, separate files.
-  git -C "$repo_root" worktree add "$worktree_path" -b "$branch" || return 1
-
-  # Open a new tmux window named after the branch, cd'd into the worktree
-  command tmux new-window -n "$branch" -c "$worktree_path"
-  # Split the window with a right column taking 40% of the width (pane 1)
-  command tmux split-window -t ":${branch}.0" -h -p 40 -c "$worktree_path"
-  # Split the right column so the bottom terminal pane (pane 2) takes 1/3, claude keeps 2/3
-  command tmux split-window -t ":${branch}.1" -v -p 33 -c "$worktree_path"
-  # Wait for shells to initialize (oh-my-zsh, etc.) before sending keystrokes
-  sleep 2
-  # Type "vim ." into the left pane and press Enter
-  command tmux send-keys -t ":${branch}.0" "vim ." Enter
-  # Build the claude command — include the task only if one was provided
-  local claude_cmd="claude --permission-mode $permission_mode"
-  [[ -n "$task" ]] && claude_cmd+=" $(printf '%q' "$task")"
-  # Type the claude command into the top-right pane
-  command tmux send-keys -t ":${branch}.1" "$claude_cmd" Enter
-  # Move focus to the claude pane
-  command tmux select-pane -t ":${branch}.1"
-  echo "Spawned '$branch' → $worktree_path"
-}
-
-# list-tasks — show all active worktrees
-list-tasks() {
-  local repo_root
-  repo_root=$(_get_repo_root) || return 1
-  # Print all worktrees for this repo (path, HEAD commit, branch name)
-  git -C "$repo_root" worktree list
-}
-
-# kill-task <branch> — remove worktree + close tmux window
-kill-task() {
-  local branch="${1:-$(git branch --show-current 2>/dev/null)}"
-  # Bail if no branch name given or couldn't detect current branch
-  if [[ -z "$branch" ]]; then
-    echo "Usage: kill-task <branch-name>"
-    return 1
-  fi
-
-  # Bail if not inside a tmux session
-  if [[ -z "$TMUX" ]]; then
-    echo "kill-task: must be run inside a tmux session"
-    return 1
-  fi
-
-  local repo_root
-  repo_root=$(_get_repo_root) || return 1
-
-  local worktree_path
-  worktree_path=$(_get_worktree_path "$repo_root" "$branch")
-
-  # Delete the worktree from disk and git's tracking.
-  # --force removes it even if there are uncommitted changes.
-  # && means the echo only runs if the remove succeeded.
-  git -C "$repo_root" worktree remove "$worktree_path" --force \
-    && echo "Removed worktree: $worktree_path"
-
-  # Delete the local branch
-  git -C "$repo_root" branch -D "$branch" 2>/dev/null \
-    && echo "Deleted branch: $branch"
-
-  # Close the tmux window if it still exists.
-  # list-windows -F prints just the window names; grep -q checks for an exact match quietly.
-  if command tmux list-windows -F '#{window_name}' 2>/dev/null | grep -q "^${branch}$"; then
-    command tmux kill-window -t ":$branch"
-    echo "Closed tmux window: $branch"
-  fi
-}
-
-# --- Zsh tab completions ---
-
-# _kill_task_complete — zsh calls this on <TAB> after "kill-task" to list candidates
-_kill_task_complete() {
-  # Silently bail if not in a git repo
-  local repo_root
-  repo_root=$(_get_repo_root 2>/dev/null) || return
-
-  local branches=()
-  # Read each worktree line, skipping the main one (tail -n +2)
-  # Process substitution < <(...) avoids a subshell so $branches survives the loop
-  while IFS= read -r line; do
-    # Regex captures the branch name between [brackets]; zsh stores it in $match[1]
-    if [[ "$line" =~ '\[(.+)\]' ]]; then
-      branches+=("${match[1]}")
-    fi
-  done < <(git -C "$repo_root" worktree list | tail -n +2)
-  # compadd -a registers the array as completion candidates; zsh handles prefix matching
-  compadd -a branches
-}
-# Wire up _kill_task_complete as the <TAB> handler for kill-task
-compdef _kill_task_complete kill-task
+# Source every command file. (N) is a null-glob qualifier: if the directory is
+# empty the pattern expands to nothing instead of erroring.
+for _ai_workflow_file in "$_ai_workflow_dir"/*.sh(N); do
+  source "$_ai_workflow_file"
+done
+unset _ai_workflow_repo_dir _ai_workflow_dir _ai_workflow_file
