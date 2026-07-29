@@ -91,6 +91,8 @@ The test: Every changed line should trace directly to the user's request.
   files/components and their changes.
 - After pushing: if no PR exists for the branch, open one with the standard title + body. If a PR
   exists, update its description when the new commits materially change what's shipping.
+- Do not append `claude.ai/code/session_*` backlinks (e.g. a `Claude-Session:` trailer or a bare
+  session URL) to commit messages or PR bodies.
 
 ## Frontend Design
 - Avoid “AI slop” UI. Be opinionated + distinctive.
