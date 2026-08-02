@@ -4,7 +4,7 @@ Steps:
 1. Run `git status` and `git diff` to review what's changed.
 2. Stage and commit any unstaged changes using a concise imperative commit message (≤72 chars).
    - Skip if there's nothing to commit.
-   - Create a fixup commit unless told not to.
+   - Create a fixup commit only when the branch already has a relevant commit; otherwise create a normal commit.
 3. Push the current branch to remote (with `-u` if no upstream is set yet).
 4. Check if a PR already exists for this branch (`gh pr view`).
    - If yes: update its title and body with `gh pr edit` to reflect the current diff vs main. Leave
