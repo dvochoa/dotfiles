@@ -9,6 +9,7 @@ local lsps = {
   'marksman',
   'sqlls',
   'pyright',
+  'ruff',
   'lua_ls',
   'gopls',
   'jdtls',
@@ -63,6 +64,44 @@ vim.lsp.config.lua_ls = {
       },
     },
   },
+}
+
+-- ts_ls: turn on inlay hints (server sends nothing unless these are enabled).
+-- 'literals' for param names keeps them from being noisy on obvious calls.
+vim.lsp.config.ts_ls = {
+  settings = {
+    typescript = {
+      inlayHints = {
+        includeInlayParameterNameHints = 'literals',
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
+    },
+    javascript = {
+      inlayHints = {
+        includeInlayParameterNameHints = 'literals',
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+      },
+    },
+  },
+}
+
+-- eslint: run "fix all" on save. Wrap the base on_attach so lspconfig's
+-- LspEslintFixAll command still gets registered (it lives inside on_attach).
+local eslint_on_attach = vim.lsp.config.eslint.on_attach
+vim.lsp.config.eslint = {
+  on_attach = function(client, bufnr)
+    if eslint_on_attach then eslint_on_attach(client, bufnr) end
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      buffer = bufnr,
+      command = 'LspEslintFixAll',
+    })
+  end,
 }
 
 -- Set up autocomplete
@@ -131,6 +170,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local opts = { buffer = ev.buf }
 
+    -- Inlay hints on by default; <leader>vh toggles for the current buffer
+    vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+    vim.keymap.set('n', '<leader>vh', function()
+      vim.lsp.inlay_hint.enable(
+        not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }),
+        { bufnr = ev.buf }
+      )
+    end, opts) -- Toggle inlay hints
+
     local function jump_centered(jump_fn)
       jump_fn()
       vim.api.nvim_create_autocmd('CursorMoved', {
@@ -147,6 +195,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts) -- Rename the current entity
 
     vim.keymap.set('n', '<leader>vca', vim.lsp.buf.code_action, opts) -- Open vim code actions menu
+    vim.keymap.set('n', '<leader>vi', function()
+      vim.lsp.buf.code_action({
+        context = { only = { 'source.addMissingImports.ts' }, diagnostics = {} },
+        apply = true,
+      })
+    end, opts) -- Add all missing imports (TS)
     vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts) -- Open diagnostics menu
     vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, opts) -- Go to next diagnostics item
     vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, opts) -- Go to prev diagnostics item

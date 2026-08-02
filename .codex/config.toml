@@ -6,14 +6,14 @@ personality = "pragmatic"
 vim_mode_default = true
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-07-28T23:32:04Z"
-last_revision = "da4ce626c8d980d2fd15cc270b78765485ec708a"
+last_updated = "2026-08-01T13:46:32Z"
+last_revision = "10dee3b37671692f9c2437988b68faa5e1256b38"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.supabase-agent-skills]
-last_updated = "2026-07-28T17:15:41Z"
-last_revision = "1ad9aaeb49caafd9e95c0a91116f71890eebbc53"
+last_updated = "2026-08-01T13:46:33Z"
+last_revision = "1207767388a0ffb55f21fb4e6988fee96942431d"
 source_type = "git"
 source = "https://github.com/supabase/agent-skills.git"
 
@@ -85,6 +85,9 @@ Authorization = "Bearer $GITHUB_MCP_PAT"
 trust_level = "trusted"
 
 [projects."/Users/danny/dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/danny/Desktop/Work/1up"]
 trust_level = "trusted"
 
 [hooks.state]
