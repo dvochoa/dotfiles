@@ -24,6 +24,7 @@ require('mason-lspconfig').setup({
 
 -- Enable all of the lsps
 vim.lsp.enable(lsps)
+vim.lsp.enable('sourcekit')
 
 -- Get default cmp capabilities and extend with cmp_nvim_lsp
 local capabilities = vim.tbl_deep_extend(
