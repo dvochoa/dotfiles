@@ -13,7 +13,7 @@ ARGUMENTS
   <task>          Optional initial prompt handed to the agent. Quote if it has spaces.
 
 OPTIONS
-  -m, --mode <m>  Task mode (default: plan). Translated per agent:
+  -m, --mode <m>  Task mode (default: auto). Translated per agent:
                     plan   claude: --permission-mode plan
                            codex:  --sandbox read-only
                     auto   claude: --permission-mode acceptEdits
@@ -24,8 +24,8 @@ OPTIONS
 EXAMPLES
   start-task fix-login
   start-task fix-login "diagnose the 500 on /login"
-  start-task fix-login "refactor auth" -m auto
-  start-task fix-login "port to codex" -a codex -m auto
+  start-task fix-login "refactor auth" -m plan
+  start-task fix-login "port to codex" -a codex -m plan
 
 Must be run inside a tmux session. Opens a window split into three panes:
 vim (left), the agent (top-right), and a terminal (bottom-right).
@@ -33,7 +33,7 @@ EOF
 }
 
 # start-task <branch> ["<task>"] [-m plan|auto] [-a claude|codex] — worktree + tmux window + agent
-#   -m, --mode   task mode: "plan" (default) or "auto"
+#   -m, --mode   task mode: "auto" (default) or "plan"
 #   -a, --agent  which agent to launch: "claude" (default) or "codex"
 #   -h, --help   show usage and exit
 start-task() {
@@ -63,7 +63,7 @@ start-task() {
 
   # Parse the remaining args: an optional task string plus -m/--mode and -a/--agent flags
   local task=""
-  local mode="plan"      # default task mode
+  local mode="auto"      # default task mode
   local agent="claude"   # default agent
   while [[ $# -gt 0 ]]; do
     case "$1" in
