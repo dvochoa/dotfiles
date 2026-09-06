@@ -85,12 +85,34 @@ The test: Every changed line should trace directly to the user's request.
 - Keep notes short; update docs when behavior/API changes (no ship w/o docs).
 
 ## Git Commits & PRs
+- **The human decides what becomes a commit.** Not every finished piece of work is its own commit,
+  and that call is not the agent's to make. Leave the work in the working tree, say what changed,
+  and stop.
+- **Never run `git commit`, `git push`, `git rebase`, or open a PR unless asked directly, in that
+  message.** Not because a task looks done, not because a project's definition of done lists it,
+  not because you were asked to commit something earlier in the session. "Commit this", "ship it",
+  or `/ship` is the ask — a finished task is not. When in doubt, stop and say the work is ready.
+
+Everything below is _how_ to do it once you have been asked. It is not a licence to do it
+unprompted.
+
+- One commit per PR. A task's implementation is a single commit — one _task_, not one commit per
+  file touched.
 - Commit subject: short imperative line (≤72 chars)
 - PR title: short (≤70 chars)
 - PR body: always include `## Description` (what + why) and `## Change Summary` mentioning affected
   files/components and their changes.
-- After pushing: if no PR exists for the branch, open one with the standard title + body. If a PR
-  exists, update its description when the new commits materially change what's shipping.
+- After a push you were asked to make: if no PR exists for the branch, open one with the standard
+  title + body. If a PR exists, update its description when the new commits materially change
+  what's shipping.
+- When you have been asked to ship review feedback, it goes in as a fixup commit
+  (`git commit --fixup=<sha-of-the-PR's-commit>`), never a new standalone commit. Feedback
+  arriving is not itself an ask — it changes what the code should be, not whether to publish it.
+  Fixups stay separate on the branch so the reviewer can see what changed since their last look,
+  then collapse on **squash and merge**. Do not rewrite or force-push a branch that is under
+  review — the fixups are the audit trail until merge.
+- When squash-merging, clear the `fixup!` lines out of GitHub's auto-generated commit message body;
+  the merged commit should read as the original message alone.
 - Do not append `claude.ai/code/session_*` backlinks (e.g. a `Claude-Session:` trailer or a bare
   session URL) to commit messages or PR bodies.
 

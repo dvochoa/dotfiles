@@ -1,0 +1,93 @@
+onboarding = false
+# herdr config — mapped from ~/dotfiles/.tmux.conf
+# Reference: `herdr --default-config` prints the full annotated template.
+
+[keys]
+# tmux: set -g prefix C-s
+prefix = "ctrl+s"
+
+# tmux: bind r source-file ~/.tmux.conf
+# prefix+r is resize_mode by default, so push resize_mode up to shift+R
+# (which is where reload_config used to live).
+reload_config = "prefix+r"
+resize_mode   = "prefix+shift+r"
+
+# tmux: bind-key -r h/j/k/l select-pane -L/-D/-U/-R
+# Already the herdr defaults; listed so they're explicit.
+focus_pane_left  = "prefix+h"
+focus_pane_down  = "prefix+j"
+focus_pane_up    = "prefix+k"
+focus_pane_right = "prefix+l"
+
+# tmux: bind-key -r o / O  (next / previous pane)
+cycle_pane_next     = "prefix+o"
+cycle_pane_previous = "prefix+shift+o"
+
+# tmux: bind-key Tab last-pane
+# (frees prefix+tab from cycle_pane_next above)
+last_pane = "prefix+tab"
+
+# tmux: bind-key Right split-window -h   (side-by-side)
+#       bind-key Down  split-window -v   (stacked)
+# Verified on 0.8.2: "vertical" = side-by-side, "horizontal" = stacked (vim's
+# convention, i.e. the divider's orientation). Herdr's docs don't state this.
+split_vertical   = "prefix+right"
+split_horizontal = "prefix+down"
+
+# tmux: bind-key x kill-pane  (herdr default already; no confirm prompt)
+close_pane = "prefix+x"
+
+# tmux: unbind c; bind-key c new-window + name prompt
+# herdr's "window" is a tab; the name prompt is ui.prompt_new_tab_name below.
+new_tab = "prefix+c"
+
+# tmux: bind-key C command-prompt "new-session"
+# herdr's "session" is a workspace.
+new_workspace = "prefix+shift+c"
+
+# tmux muscle memory: prefix+d to detach
+detach = "prefix+d"
+
+# Worktree actions. new_worktree is prefix+shift+g by default; the other two ship
+# unbound. shift+O is deliberately avoided — that's cycle_pane_previous (tmux O).
+# shift+letter transmits everywhere; shift+backspace does not survive
+# Terminal.app (no modern keyboard protocol), so remove is on shift+K for "kill".
+new_worktree    = "prefix+shift+g"
+open_worktree   = "prefix+shift+f"
+remove_worktree = "prefix+shift+k"
+
+# Keep checkouts inside the work tree so editors and tools see them, but in their
+# own directory so Desktop/Work stays a list of projects. Herdr nests per repo:
+# ~/Desktop/Work/worktrees/1up/<branch>. Only affects newly created worktrees.
+[worktrees]
+directory = "~/Desktop/Work/worktrees"
+
+[ui]
+# tmux: set -g mouse on
+mouse_capture = true
+
+# tmux-yank equivalent: mouse selection goes straight to the system clipboard
+copy_on_select = true
+
+# tmux: your `c` and `C` bindings both prompt for a name
+prompt_new_tab_name       = true
+prompt_new_workspace_name = true
+
+# tmux-style internal splitters, no outer frame
+pane_outer_borders = false
+
+[ui.toast]
+# No pop-up for background agents. Paired with [ui.sound] below this means agent state
+# changes are silent and invisible — the sidebar is the only signal. The clipboard
+# toast is a separate switch ([ui.toast.clipboard]) and is deliberately left on.
+delivery = "off"
+
+[ui.sound]
+# Herdr dings on every agent state change in a *background* workspace, so each extra
+# workspace multiplies the noise. Not in the shipped config, so this was defaulting to
+# enabled.
+enabled = false
+
+[theme]
+name = "tokyo-night"
+auto_switch = false

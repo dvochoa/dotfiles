@@ -4,7 +4,14 @@ Steps:
 1. Run `git status` and `git diff` to review what's changed.
 2. Stage and commit any unstaged changes using a concise imperative commit message (≤72 chars).
    - Skip if there's nothing to commit.
-   - Create a fixup commit only when the branch already has a relevant commit; otherwise create a normal commit.
+   - **The first commit on a branch is a normal commit. Every commit after that, for as long as the
+     PR is open, is a fixup** — `git commit --fixup=<sha>` targeting the branch commit it amends.
+     Never add a second standalone commit to a branch that already has one; successive work on the
+     same PR always attaches to an existing commit.
+   - When the branch has several commits, target the one whose content the change actually belongs
+     to. If a change spans two, make one fixup per target rather than one fixup covering both.
+   - Do not rebase, squash, amend, or force-push a branch that is already pushed — the fixups are
+     the reviewer's audit trail and collapse on **squash and merge**.
 3. Push the current branch to remote (with `-u` if no upstream is set yet).
 4. Check if a PR already exists for this branch (`gh pr view`).
    - If yes: update its title and body with `gh pr edit` to reflect the current diff vs main. Leave
