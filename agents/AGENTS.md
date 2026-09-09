@@ -108,10 +108,8 @@ unprompted.
 
 - One commit per PR. A task's implementation is a single commit — one _task_, not one commit per
   file touched.
-- Branch names describe the change, never the tool that made it. No `claude/`, `codex/`, `cursor/`,
-  `bot/` or similar agent prefixes — which agent drove the keyboard is not something a reader of the branch list cares
-  about. Use a short kebab-case summary of the work, optionally under a conventional type prefix the repo already uses
-  (`fix/`, `feat/`, `chore/`).
+- Branch names should provide a brief kebab-case description of the change. They should not include prefixes like
+  `claude/`, `codex/`, `chore/`, `fix/` and so on.
 - Commit subject: short imperative line (≤72 chars)
 - PR title: short (≤70 chars)
 - PR body: always include `## Description` (what + why) and `## Change Summary` mentioning affected
