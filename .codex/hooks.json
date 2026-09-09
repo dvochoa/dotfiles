@@ -1,12 +1,23 @@
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/danny/.codex/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [
           {
-            "type": "command",
             "command": "/Users/danny/dotfiles/agents/hooks/notify.sh",
-            "statusMessage": "Sending completion notification..."
+            "statusMessage": "Sending completion notification...",
+            "type": "command"
           }
         ]
       }

@@ -1,0 +1,61 @@
+onboarding = false
+# herdr config — mapped from ~/dotfiles/.tmux.conf
+# Reference: `herdr --default-config` prints the full annotated template.
+
+[keys]
+prefix = "ctrl+s"
+
+# prefix+r is resize_mode by default, so push resize_mode up to shift+R
+# (which is where reload_config used to live).
+reload_config = "prefix+r"
+resize_mode   = "prefix+shift+r"
+
+# Already the herdr defaults; listed so they're explicit.
+focus_pane_left  = "prefix+h"
+focus_pane_down  = "prefix+j"
+focus_pane_up    = "prefix+k"
+focus_pane_right = "prefix+l"
+
+cycle_pane_next     = "prefix+o"
+cycle_pane_previous = "prefix+shift+o"
+
+last_pane = "prefix+tab"
+
+split_vertical   = "prefix+right"
+split_horizontal = "prefix+down"
+
+close_pane = "prefix+x"
+
+new_tab = "prefix+c"
+
+new_workspace = "prefix+shift+c"
+
+detach = "prefix+d"
+
+new_worktree    = "prefix+shift+g"
+open_worktree   = "prefix+shift+f"
+remove_worktree = "prefix+shift+k"
+
+[worktrees]
+directory = "~/Desktop/Work/worktrees"
+
+[ui]
+mouse_capture = true
+
+# tmux-yank equivalent: mouse selection goes straight to the system clipboard
+copy_on_select = true
+
+prompt_new_tab_name       = true
+prompt_new_workspace_name = true
+
+pane_outer_borders = false
+
+[ui.toast]
+delivery = "off"
+
+[ui.sound]
+enabled = false
+
+[theme]
+name = "tokyo-night"
+auto_switch = false

@@ -9,6 +9,7 @@ Personal relationship: Call me king
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
 Before implementing:
+
 - State your assumptions explicitly. If uncertain, ask.
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
@@ -32,18 +33,21 @@ Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, sim
 **Touch only what you must. Clean up only your own mess.**
 
 When editing existing code:
+
 - Don't "improve" adjacent code, comments, or formatting.
 - Don't refactor things that aren't broken.
 - Match existing style, even if you'd do it differently.
 - If you notice unrelated dead code, mention it - don't delete it.
 
 When your changes create orphans:
+
 - Remove imports/variables/functions that YOUR changes made unused.
 - Don't remove pre-existing dead code unless asked.
 
 The test: Every changed line should trace directly to the user's request.
 
 ## Agent Protocol
+
 - “Make a note” => edit the active repository's `AGENTS.md`.
 - Bugs: add regression test when it fits.
 - Keep files <~500 LOC; split/refactor as needed.
@@ -61,11 +65,13 @@ The test: Every changed line should trace directly to the user's request.
 - Markdown files: wrap prose lines at 100 characters; leave code blocks unwrapped.
 
 ## Critical Thinking
+
 - Fix root cause (not band-aid).
 - Unsure: read more code; if still stuck, ask w/ short options.
 - Conflicts: call out; pick safer path.
 
 ## Evidence & Claims
+
 - Do NOT make factual claims about third-party APIs, libraries, or services without citing
   documentation.
 - When asked a technical question, verify with docs/source before asserting behavior (e.g., Supabase
@@ -74,27 +80,56 @@ The test: Every changed line should trace directly to the user's request.
 - If unsure, say so explicitly rather than guessing
 
 ## Screenshots (“use a screenshot”)
+
 - Pick newest PNG or JPG in `~/Desktop` or `~/Desktop`.
 - Verify it’s the right UI (ignore filename).
 
 ## Imports
+
 - Prefer absolute imports over relative imports unless the target is a sibling of the importing
   file.
 
 ## Docs
+
 - Keep notes short; update docs when behavior/API changes (no ship w/o docs).
 
 ## Git Commits & PRs
+
+- **The human decides what becomes a commit.** Not every finished piece of work is its own commit,
+  and that call is not the agent's to make. Leave the work in the working tree, say what changed,
+  and stop.
+- **Never run `git commit`, `git push`, `git rebase`, or open a PR unless asked directly, in that
+  message.** Not because a task looks done, not because a project's definition of done lists it,
+  not because you were asked to commit something earlier in the session. "Commit this", "ship it",
+  or `/ship` is the ask — a finished task is not. When in doubt, stop and say the work is ready.
+
+Everything below is _how_ to do it once you have been asked. It is not a licence to do it
+unprompted.
+
+- One commit per PR. A task's implementation is a single commit — one _task_, not one commit per
+  file touched.
+- Branch names describe the change, never the tool that made it. No `claude/`, `codex/`, `cursor/`,
+  `bot/` or similar agent prefixes — which agent drove the keyboard is not something a reader of the branch list cares
+  about. Use a short kebab-case summary of the work, optionally under a conventional type prefix the repo already uses
+  (`fix/`, `feat/`, `chore/`).
 - Commit subject: short imperative line (≤72 chars)
 - PR title: short (≤70 chars)
 - PR body: always include `## Description` (what + why) and `## Change Summary` mentioning affected
   files/components and their changes.
-- After pushing: if no PR exists for the branch, open one with the standard title + body. If a PR
-  exists, update its description when the new commits materially change what's shipping.
+- After a push you were asked to make: if no PR exists for the branch, open one with the standard
+  title + body. If a PR exists, update its description when the new commits materially change
+  what's shipping.
+- When you have been asked to ship review feedback, it goes in as a fixup commit
+  (`git commit --fixup=<sha-of-the-PR's-commit>`), never a new standalone commit. Feedback
+  arriving is not itself an ask — it changes what the code should be, not whether to publish it.
+  Fixups stay separate on the branch so the reviewer can see what changed since their last look,
+  then collapse on **squash and merge**. Do not rewrite or force-push a branch that is under
+  review — the fixups are the audit trail until merge.
 - Do not append `claude.ai/code/session_*` backlinks (e.g. a `Claude-Session:` trailer or a bare
   session URL) to commit messages or PR bodies.
 
 ## Frontend Design
+
 - Avoid “AI slop” UI. Be opinionated + distinctive.
 - Unless starting from scratch, keep design consistent with the existing asthetic
 - Typography: pick a real font; avoid Inter/Roboto/Arial/system defaults.

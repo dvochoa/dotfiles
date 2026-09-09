@@ -1,12 +1,12 @@
 {
   "attribution": {
     "commit": "",
-    "pr": ""
+    "pr": "",
+    "sessionUrl": false
   },
   "permissions": {
     "allow": [
       "Edit(**)",
-      "Write(**)",
       "Read(**)",
       "Read(~/Desktop/*.png)",
       "Read(~/Downloads/*.png)",
@@ -42,6 +42,7 @@
       "Bash(git commit:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
+      "Bash(git push:*)",
       "Bash(git status:*)",
       "Bash(gh pr create:*)",
       "Bash(gh pr diff:*)",
@@ -50,44 +51,22 @@
       "Bash(gh pr view:*)",
       "Bash(mvn:*)",
       "Bash(npm:*)",
-      "Bash(node:*)",
-      "Bash(npx:*)",
-      "Bash(pnpm:*)",
-      "Bash(yarn:*)",
-      "Plugin:playwright:browser_navigate_back",
-      "Plugin:playwright:browser_close",
-      "Plugin:playwright:browser_resize",
-      "Plugin:playwright:browser_tabs",
-      "Plugin:playwright:browser_console_messages",
-      "Plugin:playwright:browser_network_requests",
-      "Plugin:playwright:browser_snapshot",
-      "Plugin:playwright:browser_take_screenshot",
-      "Plugin:playwright:browser_click",
-      "Plugin:playwright:browser_type",
-      "Plugin:playwright:browser_press_key",
-      "Plugin:playwright:browser_hover",
-      "Plugin:playwright:browser_select_options",
-      "Plugin:playwright:browser_drag",
-      "Plugin:playwright:browser_fill_form",
-      "Plugin:next-devtools:init",
-      "Plugin:next-devtools:nextjs_docs",
-      "Plugin:next-devtools:browser_eval",
-      "Plugin:next-devtools:nextjs_index",
-      "Plugin:next-devtools:nextjs_call"
+      "Bash(yarn:*)"
     ],
     "deny": [
       "Read(./.env**)",
       "Read(./secrets/**)"
     ],
     "ask": [],
+    "defaultMode": "auto",
     "additionalDirectories": [
       "~/Desktop/Work"
     ]
   },
   "model": "opus",
-  "enabledMcpjsonServers": [
-    "next-devtools"
-  ],
+  "skillOverrides": {
+    "find-skills": "off"
+  },
   "hooks": {
     "Stop": [
       {
@@ -120,21 +99,22 @@
             "statusMessage": "Loading nvm environment..."
           }
         ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/danny/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
       }
     ]
   },
-  "enabledPlugins": {
-    "frontend-design@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "code-simplifier@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true
-  },
   "outputStyle": "Explanatory",
   "alwaysThinkingEnabled": true,
+  "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
@@ -142,6 +122,5 @@
   "editorMode": "vim",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "tui": "fullscreen"
+  "voiceEnabled": true
 }

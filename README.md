@@ -1,6 +1,7 @@
 # My Dotfiles
 
 ## Setup
+
 1. Install [oh-my-zsh](https://ohmyz.sh/)
 2. Install brew packages by running `./brew_install_packages.sh`
 3. Download or copy and paste the contents of whichever dotfiles you'd like to use and edit/remove
@@ -13,13 +14,20 @@
 
 `agents/AGENTS.md` is the shared instruction source for coding agents.
 
-- Cluade: Link `claude/` to `~/.claude` and `agents/` to `~/.agents`. 
+- Cluade: Link `claude/` to `~/.claude` and `agents/` to `~/.agents`.
 - Codex: Link only `.codex/config.toml`, `.codex/AGENTS.md`, and `.codex/hooks.json` into
   `~/.codex`; leave Codex's auth, sessions, caches, and runtime state local. Link individual
   `.codex/skills/*` directories into `~/.codex/skills/`.
+- `agents/.skill-lock.json` is the source of truth for globally installed third-party skills.
+  After linking `agents/` to `~/.agents`, run `node agents/install-skills.mjs` once to install every
+  locked skill for the agents listed in the lock file. The skills CLI keeps agent-specific directories
+  as links to `~/.agents/skills/`; run the command again after editing the lock file or to refresh the
+  skills.
 
 ## Terminal Theme
+
 I use the default MacOS Terminal App with the following settings:
+
 - Basic Profile
 - Hack Nerd Font Regular 12
 - Antialias text disabled
@@ -27,6 +35,7 @@ I use the default MacOS Terminal App with the following settings:
 - Blink Cursor enabled
 
 ## Future Improvements
+
 - Introduce script for packages installed via non-homebrew package managers such as npm
 - Include a more holistic install/setup script
 - Could consider integrating with something like [chezmoi](https://www.chezmoi.io/) to make this more straightforward and feature rich.

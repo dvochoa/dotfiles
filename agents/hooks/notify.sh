@@ -2,6 +2,11 @@
 # Hook for Stop and Notification events — sends a macOS native notification
 
 INPUT=$(cat)
+
+# Inside a herdr pane, herdr owns notifications — it scopes them to background
+# workspaces rather than to whether Terminal.app happens to be frontmost.
+[ "${HERDR_ENV:-}" = "1" ] && exit 0
+
 EVENT=$(echo "$INPUT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('hook_event_name',''))" 2>/dev/null)
 MESSAGE=$(echo "$INPUT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('message',''))" 2>/dev/null)
 
