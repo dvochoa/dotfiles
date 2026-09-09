@@ -18,6 +18,11 @@
 - Codex: Link only `.codex/config.toml`, `.codex/AGENTS.md`, and `.codex/hooks.json` into
   `~/.codex`; leave Codex's auth, sessions, caches, and runtime state local. Link individual
   `.codex/skills/*` directories into `~/.codex/skills/`.
+- `agents/.skill-lock.json` is the source of truth for globally installed third-party skills.
+  After linking `agents/` to `~/.agents`, run `node agents/install-skills.mjs` once to install every
+  locked skill for the agents listed in the lock file. The skills CLI keeps agent-specific directories
+  as links to `~/.agents/skills/`; run the command again after editing the lock file or to refresh the
+  skills.
 
 ## Terminal Theme
 
