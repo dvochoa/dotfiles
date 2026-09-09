@@ -1,8 +1,11 @@
 Commit all changes, push to remote, and create or update the PR description.
 
 Steps:
+
 1. Run `git status` and `git diff` to review what's changed.
-2. Stage and commit any unstaged changes using a concise imperative commit message (≤72 chars).
+2. If the current branch is `main`, create a new descriptive branch before staging or committing.
+   Use a short kebab-case summary.
+3. Stage and commit any unstaged changes using a concise imperative commit message (≤72 chars).
    - Skip if there's nothing to commit.
    - **The first commit on a branch is a normal commit. Every commit after that, for as long as the
      PR is open, is a fixup** — `git commit --fixup=<sha>` targeting the branch commit it amends.
@@ -12,12 +15,12 @@ Steps:
      to. If a change spans two, make one fixup per target rather than one fixup covering both.
    - Do not rebase, squash, amend, or force-push a branch that is already pushed — the fixups are
      the reviewer's audit trail and collapse on **squash and merge**.
-3. Push the current branch to remote (with `-u` if no upstream is set yet).
-4. Check if a PR already exists for this branch (`gh pr view`).
+4. Push the current branch to remote (with `-u` if no upstream is set yet).
+5. Check if a PR already exists for this branch (`gh pr view`).
    - If yes: update its title and body with `gh pr edit` to reflect the current diff vs main. Leave
      any TODOs unchanged.
    - If no: create one with `gh pr create` using the standard title + body format.
-5. Output the PR URL.
+6. Output the PR URL.
 
 Ground the body in the real diff. Before writing it, get the actual changed-file list with
 `gh pr diff --name-only` (or `git diff main...HEAD --name-only`). Every file and change named in
@@ -26,8 +29,11 @@ stray session URLs or scratch links in the body. If the diff contradicts what yo
 ship, stop and surface it rather than describing the intent.
 
 PR body format:
+
 ## Description
+
 [what changed and why]
 
 ## Change Summary
+
 [bullet list of affected files/components and their changes]
