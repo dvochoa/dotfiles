@@ -1,0 +1,80 @@
+# Workflow to run AI review on non-draft pull requests.
+name: Code Review
+
+on:
+  pull_request:
+    types: [ready_for_review, opened, synchronize]
+
+jobs:
+  code-review:
+    name: code review
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          # One-year expiry; regenerate with: claude setup-token
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          allowed_bots: claude
+          use_sticky_comment: true
+          track_progress: true
+          claude_args: |
+            --model claude-opus-4-8
+          prompt: |
+            You are reviewing a pull request for a personal dotfiles repository. Its primary goal is
+            making the developer's workflow easy to pick up on a new macOS machine. Review it as the
+            person responsible for keeping that setup safe, portable, reproducible, and easy to
+            maintain.
+
+            Read `AGENTS.md` first, then `README.md`. The conventions in `AGENTS.md` win over your
+            own defaults — quote the relevant line when you flag a violation of one.
+
+            This repository manages shell, Git, Neovim, Herdr, Claude, Codex, and agent workflow
+            configuration. It also contains setup scripts and small shell helpers. Changes often run
+            on the developer's machine with access to personal files and credentials.
+
+            Beyond the conventions, cover:
+
+            - **Safety** — destructive shell commands, broad paths or globs, unsafe quoting,
+              accidental credential exposure, and scripts that can overwrite personal state
+            - **Correctness** — invalid shell, Lua, TOML, JSON, YAML, or Git configuration; broken
+              paths, keybindings, symlinks, and setup instructions
+            - **Portability** — macOS assumptions must be intentional; flag hard-coded user paths,
+              unavailable commands, or shell-specific syntax that contradicts the target shell
+            - **Fresh-machine setup** — flag missing installation, linking, setup, or documentation
+              steps that prevent a new machine from reproducing the intended development workflow;
+              call out concrete improvements that would make setup easier or more reliable
+            - **Agent consistency** — when an agent-behavior change affects `.codex/rules/default.rules`
+              or `claude/settings.json`, verify the equivalent change is mirrored as required by
+              `AGENTS.md`
+            - **Neovim and terminal tooling** — plugin specs must match Lazy.nvim conventions;
+              keymaps must not silently conflict; external tools need installation coverage
+            - **Git worktrees and automation** — preserve isolation between worktrees and avoid
+              deleting branches, worktrees, or untracked files without clear user intent
+            - **Code quality** — minimal, focused changes; no unrelated refactors or untracked
+              generated/runtime files; documentation stays accurate when behavior changes
+
+            Before reporting anything, verify it against the actual code — open the file and
+            confirm the problem is real. A finding you cannot point at a specific line for is not a
+            finding. Do not speculate about code you have not read.
+
+            Rank every finding:
+            - **blocking** — destructive behavior, credential risk, broken setup, or a bug that
+              makes a configured tool unusable
+            - **should-fix** — real portability, maintainability, or configuration problem
+            - **[nit]** — style and taste
+
+            Format your review with a short summary up top, then inline comments on specific lines
+            where applicable. Do not pad: three real blocking findings beat twelve maybes. If the
+            diff is clean, say so in one line and stop — "looks good" is a valid complete review.
