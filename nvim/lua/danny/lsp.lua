@@ -171,8 +171,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local opts = { buffer = ev.buf }
 
-    -- Inlay hints on by default; <leader>vh toggles for the current buffer
-    vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+    -- Inlay hints off by default; <leader>vh toggles for the current buffer
+    vim.lsp.inlay_hint.enable(false, { bufnr = ev.buf })
     vim.keymap.set('n', '<leader>vh', function()
       vim.lsp.inlay_hint.enable(
         not vim.lsp.inlay_hint.is_enabled({ bufnr = ev.buf }),
