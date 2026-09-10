@@ -9,7 +9,7 @@ approvals_reviewer = "auto_review"
 vim_mode_default = true
 
 [tui.model_availability_nux]
-gpt-6-astra = 2
+gpt-6-astra = 3
 
 [marketplaces.claude-plugins-official]
 last_updated = "2026-08-10T16:08:49Z"
