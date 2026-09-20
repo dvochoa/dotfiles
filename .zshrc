@@ -1,5 +1,6 @@
 eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 
+export PATH="/Applications/Ghostty.app/Contents/MacOS:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 # Add mason bin to path so that other entities like Claude Code have access to LSP binaries
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"

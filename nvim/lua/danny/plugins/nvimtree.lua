@@ -27,7 +27,7 @@ return {
           -- Width of File Explorer expands to fit content
           adaptive_size = true,
           width = {
-            max = 50,  -- Maximum width in columns
+            max = 50, -- Maximum width in columns
           },
         },
         renderer = {
@@ -36,7 +36,7 @@ return {
         filters = {
           git_ignored = false,
           -- Ignore these files/directories
-          custom = {"^\\.git$", "\\.uid$", "^server\\.pipe$"},
+          custom = { "^\\.git$", "\\.uid$", "^server\\.pipe$" },
         },
         update_focused_file = {
           -- Automatically navigate to the currently opened file

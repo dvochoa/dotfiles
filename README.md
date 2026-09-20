@@ -8,6 +8,9 @@
    the fields that seem inappropriate to you (e.g. the user information in `.git_config`). If you'd
    like you can also clone this repo and symlink its files to keep your dotfiles up to date with
    changes here.
+
+   - Ghostty: `ghostty/config.ghostty` → `~/.config/ghostty/config.ghostty`
+
 4. Run `source <file_name>` after bringing in any changes so that they take effect immediately.
 
 ## Coding Agents
@@ -15,24 +18,13 @@
 `agents/AGENTS.md` is the shared instruction source for coding agents.
 
 - Cluade: Link `claude/` to `~/.claude` and `agents/` to `~/.agents`.
-- Codex: Link only `.codex/config.toml`, `.codex/AGENTS.md`, and `.codex/hooks.json` into
-  `~/.codex`; leave Codex's auth, sessions, caches, and runtime state local. Link individual
-  `.codex/skills/*` directories into `~/.codex/skills/`.
+- Codex: Link `.codex/AGENTS.md` and `.codex/hooks.json` into `~/.codex`; leave Codex's config (too much churn), auth,
+  sessions, caches, and runtime state local. Link individual `.codex/skills/*` directories into `~/.codex/skills/`.
 - `agents/.skill-lock.json` is the source of truth for globally installed third-party skills.
   After linking `agents/` to `~/.agents`, run `node agents/install-skills.mjs` once to install every
   locked skill for the agents listed in the lock file. The skills CLI keeps agent-specific directories
   as links to `~/.agents/skills/`; run the command again after editing the lock file or to refresh the
   skills.
-
-## Terminal Theme
-
-I use the default MacOS Terminal App with the following settings:
-
-- Basic Profile
-- Hack Nerd Font Regular 12
-- Antialias text disabled
-- Block Cursor
-- Blink Cursor enabled
 
 ## Future Improvements
 
