@@ -10,7 +10,7 @@ packages=(
 
 # List of Homebrew casks to install
 casks=(
-  codex rectangle hamed-elfayome/claude-usage/claude-usage-tracker
+  codex ghostty rectangle hamed-elfayome/claude-usage/claude-usage-tracker
 )
 
 echo "Updating Homebrew..."
