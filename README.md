@@ -24,16 +24,6 @@
   as links to `~/.agents/skills/`; run the command again after editing the lock file or to refresh the
   skills.
 
-## Terminal Theme
-
-I use the default MacOS Terminal App with the following settings:
-
-- Basic Profile
-- Hack Nerd Font Regular 12
-- Antialias text disabled
-- Block Cursor
-- Blink Cursor enabled
-
 ## Future Improvements
 
 - Introduce script for packages installed via non-homebrew package managers such as npm
