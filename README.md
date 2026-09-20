@@ -18,9 +18,8 @@
 `agents/AGENTS.md` is the shared instruction source for coding agents.
 
 - Cluade: Link `claude/` to `~/.claude` and `agents/` to `~/.agents`.
-- Codex: Link only `.codex/config.toml`, `.codex/AGENTS.md`, and `.codex/hooks.json` into
-  `~/.codex`; leave Codex's auth, sessions, caches, and runtime state local. Link individual
-  `.codex/skills/*` directories into `~/.codex/skills/`.
+- Codex: Link `.codex/AGENTS.md` and `.codex/hooks.json` into `~/.codex`; leave Codex's config (too much churn), auth,
+  sessions, caches, and runtime state local. Link individual `.codex/skills/*` directories into `~/.codex/skills/`.
 - `agents/.skill-lock.json` is the source of truth for globally installed third-party skills.
   After linking `agents/` to `~/.agents`, run `node agents/install-skills.mjs` once to install every
   locked skill for the agents listed in the lock file. The skills CLI keeps agent-specific directories
