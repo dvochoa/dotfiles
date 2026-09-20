@@ -8,12 +8,10 @@
    the fields that seem inappropriate to you (e.g. the user information in `.git_config`). If you'd
    like you can also clone this repo and symlink its files to keep your dotfiles up to date with
    changes here.
-4. Link Ghostty's config after installing it:
-   ```zsh
-   mkdir -p ~/.config/ghostty
-   ln -s "$PWD/ghostty/config.ghostty" ~/.config/ghostty/config.ghostty
-   ```
-5. Run `source <file_name>` after bringing in any changes so that they take effect immediately.
+
+   - Ghostty: `ghostty/config.ghostty` → `~/.config/ghostty/config.ghostty`
+
+4. Run `source <file_name>` after bringing in any changes so that they take effect immediately.
 
 ## Coding Agents
 
