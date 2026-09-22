@@ -17,7 +17,7 @@
 
 `agents/AGENTS.md` is the shared instruction source for coding agents.
 
-- Cluade: Link `claude/` to `~/.claude` and `agents/` to `~/.agents`.
+- Claude: Link `claude/` to `~/.claude` and `agents/` to `~/.agents`.
 - Codex: Link `.codex/AGENTS.md` and `.codex/hooks.json` into `~/.codex`; leave Codex's config (too much churn), auth,
   sessions, caches, and runtime state local. Link individual `.codex/skills/*` directories into `~/.codex/skills/`.
 - `agents/.skill-lock.json` is the source of truth for globally installed third-party skills.
