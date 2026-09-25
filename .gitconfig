@@ -2,6 +2,8 @@
 [user]
 	name = Danny Ochoa
 	email = danny@dannyochoa.net
+[core]
+	excludesFile = ~/.gitignore_global
 [alias]
   # Print current changelog to stdout
   qlog = "!f() { local cur_branch=$(git branch --show-current) && git log --oneline \"$cur_branch\" ^origin/main | cat; }; f"
@@ -51,6 +53,7 @@
 	mnemonicPrefix = true
 	renames = true
 [push]
+	default = upstream
 	autoSetupRemote = true
 [fetch]
 	prune = true

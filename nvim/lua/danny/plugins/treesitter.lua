@@ -21,6 +21,7 @@ return {
       "vim",
       "vimdoc",
       "yaml",
+      "zsh",
     })
 
     -- Enable highlight & indent on any buffer that has a parser.
