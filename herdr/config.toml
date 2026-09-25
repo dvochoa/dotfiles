@@ -19,6 +19,11 @@ focus_pane_right = "prefix+l"
 cycle_pane_next     = "prefix+o"
 cycle_pane_previous = "prefix+shift+o"
 
+# Vim-style spaces-sidebar nav. herdr binds each of these to a single key
+# (no arrow-key alias like pane nav gets), so this replaces up/down, not adds to it.
+navigate_workspace_up   = "k"
+navigate_workspace_down = "j"
+
 last_pane = "prefix+tab"
 
 split_vertical   = "prefix+right"
