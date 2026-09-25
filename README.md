@@ -10,6 +10,8 @@
    changes here.
 
    - Ghostty: `ghostty/config.ghostty` → `~/.config/ghostty/config.ghostty`
+   - Herdr: `herdr/config.toml` → `~/.config/herdr/config.toml`. Run `herdr/install_plugins.sh`
+     once to install the plugins it lists.
 
 4. Run `source <file_name>` after bringing in any changes so that they take effect immediately.
 

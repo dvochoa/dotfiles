@@ -29,6 +29,8 @@
   xl = log --graph --oneline --all --decorate
   # Shorter worktree list
   wtl = worktree list
+  # Remove a worktree and delete the branch it had checked out
+  wtr = "!f() { [ -n \"$1\" ] || { echo 'Usage: git wtr <worktree-path>' >&2; return 1; }; local branch=$(git -C \"$1\" branch --show-current); git worktree remove \"$1\" || return 1; git worktree prune; [ -z \"$branch\" ] || git branch -D \"$branch\"; }; f"
   # Delete all local branches except the configured defaultBranch and the current branch
   branchclear = "!f() { local default=$(git config init.defaultBranch) && local branches=$(git branch | grep -vE '^\\*|^  '\"$default\"'$') && [ -n \"$branches\" ] && echo \"$branches\" | xargs git branch -D || echo 'No branches to remove'; }; f"
   # Branch cleanup
