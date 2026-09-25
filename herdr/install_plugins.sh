@@ -10,11 +10,17 @@ plugins=(
 
 echo "Installing Herdr plugins..."
 for plugin in "${plugins[@]}"; do
-  herdr plugin install "$plugin"
+  # --yes: required when stdin isn't interactive, and makes re-running this
+  # script safe by auto-confirming the replace-existing-install prompt.
+  herdr plugin install "$plugin" --yes
 done
 
 echo "Installing Herdr's Claude Code integration..."
 herdr integration install claude
 
-echo "Restarting the Herdr server so plugins take effect..."
+# Plugins only start when the server restores a session, and there is no
+# `herdr server start`/`restart` subcommand — stop it here, then run `herdr`
+# yourself afterward to bring it back up with the plugins active.
+echo "Stopping the Herdr server so plugins load on the next launch..."
 herdr server stop
+echo "Run 'herdr' to bring the session back with the new plugins active."
