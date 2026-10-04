@@ -4,12 +4,12 @@ local nvimtree = require "nvim-tree.api"
 
 local telescope_mappings = {
   {
-    { "<leader>f", group = "Find" },
-    { "<leader>ff", builtin.find_files, desc = "Find files" },
-    { "<leader>fh", function() builtin.find_files({ hidden = true }) end, desc = "Find files (including hidden)" },
-    { "<leader>fg", builtin.git_files, desc = "Find git files" },
-    { "<leader>fl", builtin.live_grep, desc = "Live grep" },
-    { "<leader>fb", function() builtin.buffers({sort_mru = true, ignore_current_buffer=true }) end, desc = "Find buffers" }
+    { "<leader>f",  group = "Find" },
+    { "<leader>ff", builtin.find_files,                                                             desc = "Find files" },
+    { "<leader>fh", function() builtin.find_files({ hidden = true }) end,                           desc = "Find files (including hidden)" },
+    { "<leader>fg", builtin.git_files,                                                              desc = "Find git files" },
+    { "<leader>fl", builtin.live_grep,                                                              desc = "Live grep" },
+    { "<leader>fb", function() builtin.buffers({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Find buffers" }
   },
 }
 
@@ -18,7 +18,7 @@ which_key.add(telescope_mappings)
 -- Smart buffer close that switches to next/prev buffer in list
 local function smart_buffer_close()
   local current_buf = vim.api.nvim_get_current_buf()
-  local buffers = vim.fn.getbufinfo({buflisted = 1})
+  local buffers = vim.fn.getbufinfo({ buflisted = 1 })
 
   -- Find current buffer's index
   local current_index = nil
@@ -48,12 +48,12 @@ end
 
 local buffer_mappings = {
   {
-    { "Q", smart_buffer_close, desc = "Close buffer" },
-    { "bda", "<Cmd>%bd<CR>", desc = "Close all buffers" },
-    { "]b", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer"},
-    { "[b", "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer"},
-    { "bp", "<Cmd>BufferLineMovePrev<CR>", desc = "Move buffer in bufferline left"},
-    { "bn", "<Cmd>BufferLineMoveNext<CR>", desc = "Move buffer in bufferline right"}
+    { "Q",   smart_buffer_close,             desc = "Close buffer" },
+    { "bda", "<Cmd>%bd<CR>",                 desc = "Close all buffers" },
+    { "]b",  "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer" },
+    { "[b",  "<Cmd>BufferLineCyclePrev<CR>", desc = "Previous buffer" },
+    { "bp",  "<Cmd>BufferLineMovePrev<CR>",  desc = "Move buffer in bufferline left" },
+    { "bn",  "<Cmd>BufferLineMoveNext<CR>",  desc = "Move buffer in bufferline right" }
   }
 }
 
@@ -77,8 +77,8 @@ which_key.add(buffer_mappings)
 local window_mappings = {
   {
     { "<leader>e", nvimtree.tree.toggle, desc = "Toggle File Explorer" },
-    { "]w", "<C-w>l", desc = "Next window"},
-    { "[w", "<C-w>h", desc = "Previous window"},
+    { "]w",        "<C-w>l",             desc = "Next window" },
+    { "[w",        "<C-w>h",             desc = "Previous window" },
   },
 }
 
@@ -86,24 +86,24 @@ which_key.add(window_mappings)
 
 local visual_mappings = {
   {
-    { "J", ":m .+1<CR>==", desc = "Shift text up"},
-    { "K", ":m .-2<CR>==", desc = "Shift text down"},
-    { "J", ":m '>+1<CR>gv=gv", mode = "v", desc = "Shift text up"},
-    { "K", ":m '<-2<CR>gv=gv", mode = "v", desc = "Shift text down"},
+    { "J",       ":m .+1<CR>==",     desc = "Shift text up" },
+    { "K",       ":m .-2<CR>==",     desc = "Shift text down" },
+    { "J",       ":m '>+1<CR>gv=gv", mode = "v",                  desc = "Shift text up" },
+    { "K",       ":m '<-2<CR>gv=gv", mode = "v",                  desc = "Shift text down" },
 
-    { "<Tab>", ">>", desc = "Indent"},
-    { "<S-Tab>", "<<", desc = "Reverse indent"},
-    { "<Tab>", ">gv", mode = "v", desc = "Indent"},
-    { "<S-Tab>", "<gv", mode = "v", desc = "Reverse indent"},
-    { "<S-Tab>", "<C-d>", mode = "i", desc = "Reverse indent"},
+    { "<Tab>",   ">>",               desc = "Indent" },
+    { "<S-Tab>", "<<",               desc = "Reverse indent" },
+    { "<Tab>",   ">gv",              mode = "v",                  desc = "Indent" },
+    { "<S-Tab>", "<gv",              mode = "v",                  desc = "Reverse indent" },
+    { "<S-Tab>", "<C-d>",            mode = "i",                  desc = "Reverse indent" },
 
-    { "<C-u>", "<C-u>zz", desc = "Move Half Page Up"},
-    { "<C-d>", "<C-d>zz", desc = "Move Half Page Down"},
-    { "{", "{zz", desc = "Move Paragraph Up"},
-    { "}", "}zz", desc = "Move Paragraph Down"},
+    { "<C-u>",   "<C-u>zz",          desc = "Move Half Page Up" },
+    { "<C-d>",   "<C-d>zz",          desc = "Move Half Page Down" },
+    { "{",       "{zz",              desc = "Move Paragraph Up" },
+    { "}",       "}zz",              desc = "Move Paragraph Down" },
 
-    { "gg", "ggzz", desc = "Move to top of file"},
-    { "G", "Gzz", desc = "Move to end of file"},
+    { "gg",      "ggzz",             desc = "Move to top of file" },
+    { "G",       "Gzz",              desc = "Move to end of file" },
   },
 }
 
@@ -111,19 +111,19 @@ which_key.add(visual_mappings)
 
 local text_manipulation_mappings = {
   {
-    { "n", "nzzzv", desc = "Search for the next occurance of the term"},
-    { "N", "Nzzzv", desc = "Search for the previous occurance of the term"},
-    { "*", "*zzzv", desc = "Search forward for word under cursor"},
-    { "#", "#zzzv", desc = "Search backward for word under cursor"},
-    { "<Esc><Esc>", "<Cmd>noh<CR>", desc = "Clear search highlighting"},
+    { "n",          "nzzzv",                                                desc = "Search for the next occurance of the term" },
+    { "N",          "Nzzzv",                                                desc = "Search for the previous occurance of the term" },
+    { "*",          "*zzzv",                                                desc = "Search forward for word under cursor" },
+    { "#",          "#zzzv",                                                desc = "Search backward for word under cursor" },
+    { "<Esc><Esc>", "<Cmd>noh<CR>",                                         desc = "Clear search highlighting" },
 
-    { "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", desc = "Search and replace word under cursor"},
+    { "<leader>s",  ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", desc = "Search and replace word under cursor" },
 
-    { "<leader>p", "\"_dP", mode = "x", desc = "Paste without overriding register"},
+    { "<leader>p",  "\"_dP",                                                mode = "x",                                                  desc = "Paste without overriding register" },
 
-    { "<leader>y", "\"+y", desc = "Yank to system clipboard"},
-    { "<leader>y", "\"+y", mode = "v", desc = "Yank to system clipboard"},
-    { "<leader>Y", "\"+Y", desc = "Yank from cursor to end of line to system clipboard"},
+    { "<leader>y",  "\"+y",                                                 desc = "Yank to system clipboard" },
+    { "<leader>y",  "\"+y",                                                 mode = "v",                                                  desc = "Yank to system clipboard" },
+    { "<leader>Y",  "\"+Y",                                                 desc = "Yank from cursor to end of line to system clipboard" },
   }
 }
 
@@ -156,11 +156,11 @@ end
 
 local quickfix_mappings = {
   {
-    { "<leader>q", group = "Quickfix" },
-    { "<leader>qo", "<Cmd>copen<CR>", desc = "Open quickfix list" },
+    { "<leader>q",  group = "Quickfix" },
+    { "<leader>qo", "<Cmd>copen<CR>",     desc = "Open quickfix list" },
     { "<leader>qc", smart_quickfix_close, desc = "Close quickfix list" },
-    { "]q", "<Cmd>cnext<CR>", desc = "Next quickfix item" },
-    { "[q", "<Cmd>cprev<CR>", desc = "Previous quickfix item" },
+    { "]q",         "<Cmd>cnext<CR>",     desc = "Next quickfix item" },
+    { "[q",         "<Cmd>cprev<CR>",     desc = "Previous quickfix item" },
   }
 }
 
@@ -171,4 +171,3 @@ vim.keymap.set('n', '<Up>', '<Nop>')
 vim.keymap.set('n', '<Down>', '<Nop>')
 vim.keymap.set('n', '<Left>', '<Nop>')
 vim.keymap.set('n', '<Right>', '<Nop>')
-

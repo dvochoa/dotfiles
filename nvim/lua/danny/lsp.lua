@@ -14,6 +14,8 @@ local lsps = {
   'gopls',
   'jdtls',
   'omnisharp',
+  'ruby_lsp',
+  'thriftls',
 }
 
 -- Mason is used to install LSPs
