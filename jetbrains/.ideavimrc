@@ -1,5 +1,8 @@
 let mapleader = " "
 
+" Silence the beep (e.g. pressing Esc in normal mode)
+set visualbell
+
 " TAB MAPPINGS
 
 nnoremap Q :action CloseContent<CR>
