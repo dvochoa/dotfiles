@@ -7,6 +7,7 @@ return {
 
     require('telescope').setup({
       defaults = {
+        path_display = { "filename_first" },
         mappings = {
           i = {
             -- Center view after selecting in insert mode
