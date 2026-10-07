@@ -3,5 +3,8 @@
 
 # Metals (Scala LSP)
 .metals/
+.bloop/
+.bsp/
+.scala-build/
 metals.sbt
 project/project/
