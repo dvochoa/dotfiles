@@ -14,9 +14,10 @@ return {
       excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
       automaticImportBuild = "all",
       defaultBspToBuildTool = true,
-      showImplicitArguments = true,
-      showImplicitConversionsAndClasses = true,
-      showInferredType = true,
+      -- Only inferred val/def types; implicit args/conversions and type params are too noisy.
+      inlayHints = {
+        inferredTypes = { enable = true },
+      },
     }
     metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
