@@ -97,8 +97,8 @@ start-task() {
   esac
 
   # Translate (agent, mode) into native agent args.
-  # claude takes one --permission-mode; codex splits the same idea across
-  # --sandbox (what it can touch) and --ask-for-approval (when it pauses).
+  # claude takes one --permission-mode; codex uses --sandbox read-only for plan
+  # and --approve-for-me (workspace-write + automatic approval review) for auto.
   local agent_args=()
   case "$agent" in
     claude)
