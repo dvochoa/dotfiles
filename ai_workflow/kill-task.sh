@@ -1,9 +1,9 @@
-# kill-task — remove a worktree + close its tmux window, plus its <TAB> completion.
+# kill-task — remove a worktree + close its herdr workspace, plus its <TAB> completion.
 
 # _kill-task-help — print kill-task usage/help
 _kill-task-help() {
   cat <<'EOF'
-kill-task — remove a task's git worktree, its branch, and its tmux window
+kill-task — remove a task's git worktree, its branch, and its herdr workspace
 
 USAGE
   kill-task [<branch>]
@@ -16,11 +16,11 @@ OPTIONS
   -h, --help Show this help and exit.
 
 Force-removes the worktree (even with uncommitted changes), deletes the local
-branch, and closes the matching tmux window. Must be run inside a tmux session.
+branch, and closes the matching herdr workspace. Must be run inside herdr.
 EOF
 }
 
-# kill-task <branch> — remove worktree + close tmux window
+# kill-task <branch> — remove worktree + close herdr workspace
 #   -h, --help  show usage and exit
 kill-task() {
   # Show help before any guards or the branch default, so `kill-task --help`
@@ -39,21 +39,30 @@ kill-task() {
     return 1
   fi
 
-  # Bail if not inside a tmux session
-  if [[ -z "$TMUX" ]]; then
-    echo "kill-task: must be run inside a tmux session"
+  # Bail if not inside a herdr pane
+  if [[ "$HERDR_ENV" != 1 ]]; then
+    echo "kill-task: must be run inside herdr"
     return 1
   fi
 
   local repo_root
   repo_root=$(_get_repo_root) || return 1
 
-  local worktree_path
-  worktree_path=$(_get_worktree_path "$repo_root" "$branch")
+  # Ask herdr where the branch's worktree lives and which workspace has it open
+  local list worktree worktree_path workspace_id source_ws
+  list=$(herdr worktree list --cwd "$repo_root") || return 1
+  worktree=$(jq -c --arg b "$branch" '.result.worktrees[] | select(.branch == $b and .is_linked_worktree)' <<<"$list")
+  if [[ -z "$worktree" ]]; then
+    echo "kill-task: no worktree for branch '$branch'"
+    return 1
+  fi
+  worktree_path=$(jq -r '.path' <<<"$worktree")
+  workspace_id=$(jq -r '.open_workspace_id // empty' <<<"$worktree")
+  # The main checkout's workspace, if it's open — where we land after closing
+  source_ws=$(jq -r '.result.source.source_workspace_id // empty' <<<"$list")
 
   # Delete the worktree from disk and git's tracking.
   # --force removes it even if there are uncommitted changes.
-  # && means the echo only runs if the remove succeeded.
   git -C "$repo_root" worktree remove "$worktree_path" --force \
     && echo "Removed worktree: $worktree_path"
 
@@ -61,11 +70,15 @@ kill-task() {
   git -C "$repo_root" branch -D "$branch" 2>/dev/null \
     && echo "Deleted branch: $branch"
 
-  # Close the tmux window if it still exists.
-  # list-windows -F prints just the window names; grep -q checks for an exact match quietly.
-  if command tmux list-windows -F '#{window_name}' 2>/dev/null | grep -q "^${branch}$"; then
-    command tmux kill-window -t ":$branch"
-    echo "Closed tmux window: $branch"
+  # Close the workspace last: if we're running inside it, this kills our own shell
+  if [[ -n "$workspace_id" ]]; then
+    # If the task workspace is on screen, hop to the main repo first so herdr
+    # doesn't pick an arbitrary neighbor once it closes
+    if [[ -n "$source_ws" && $(herdr workspace get "$workspace_id" | jq -r '.result.workspace.focused') == true ]]; then
+      herdr workspace focus "$source_ws" >/dev/null
+    fi
+    echo "Closing herdr workspace: $workspace_id"
+    herdr workspace close "$workspace_id" >/dev/null
   fi
 }
 
