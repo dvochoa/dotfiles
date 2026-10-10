@@ -3,7 +3,7 @@
 # _start-task-help — print start-task usage/help
 _start-task-help() {
   cat <<'EOF'
-start-task — create a herdr worktree workspace and launch claude in it
+start-task — create a herdr worktree workspace and launch an agent in it
 
 USAGE
   start-task <branch> ["<task>"] [-m|--mode plan|auto] [-a|--agent claude|codex]
@@ -16,16 +16,16 @@ OPTIONS
   -m, --mode <m>  Task mode (default: auto). Translated per agent:
                     plan   claude: --permission-mode plan
                            codex:  --sandbox read-only
-                    auto   claude: --permission-mode acceptEdits
-                           codex:  --sandbox workspace-write --ask-for-approval on-request
-  -a, --agent <a> Agent to launch (default: claude). One of: claude, codex.
+                    auto   claude: --permission-mode auto
+                           codex:  --approve-for-me
+  -a, --agent <a> Agent to launch (default: codex). One of: claude, codex.
   -h, --help      Show this help and exit.
 
 EXAMPLES
   start-task fix-login
   start-task fix-login "diagnose the 500 on /login"
   start-task fix-login "refactor auth" -m plan
-  start-task fix-login "port to codex" -a codex -m plan
+  start-task fix-login "port to claude" -a claude -m plan
 
 Must be run inside herdr. The worktree lands in herdr's [worktrees] directory and
 opens as its own workspace split into three panes: nvim (left), the agent
@@ -35,7 +35,7 @@ EOF
 
 # start-task <branch> ["<task>"] [-m plan|auto] [-a claude|codex] — worktree workspace + agent
 #   -m, --mode   task mode: "auto" (default) or "plan"
-#   -a, --agent  which agent to launch: "claude" (default) or "codex"
+#   -a, --agent  which agent to launch: "codex" (default) or "claude"
 #   -h, --help   show usage and exit
 start-task() {
   # Show help before any guards, so `start-task --help` works outside herdr
@@ -65,7 +65,7 @@ start-task() {
   # Parse the remaining args: an optional task string plus -m/--mode and -a/--agent flags
   local task=""
   local mode="auto"      # default task mode
-  local agent="claude"   # default agent
+  local agent="codex"    # default agent
   while [[ $# -gt 0 ]]; do
     case "$1" in
       -h|--help)
@@ -102,15 +102,15 @@ start-task() {
   local agent_args=()
   case "$agent" in
     claude)
-      [[ "$mode" == "plan" ]] && agent_args=(--permission-mode plan) || agent_args=(--permission-mode acceptEdits)
+      [[ "$mode" == "plan" ]] && agent_args=(--permission-mode plan) || agent_args=(--permission-mode auto)
       ;;
     codex)
       if [[ "$mode" == "plan" ]]; then
         # read-only: codex can analyze but not edit — mirrors "plan first"
         agent_args=(--sandbox read-only)
       else
-        # workspace-write + on-request: edits freely, asks before escalating
-        agent_args=(--sandbox workspace-write --ask-for-approval on-request)
+        # workspace-write sandbox with approvals routed through codex's automatic review
+        agent_args=(--approve-for-me)
       fi
       ;;
     *)
