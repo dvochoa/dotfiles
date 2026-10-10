@@ -12,11 +12,3 @@ _get_repo_root() {
   # --git-common-dir returns the .git directory; dirname gives us the repo root
   dirname "$git_common_dir"
 }
-
-# _get_worktree_path <repo_root> <branch> — prints the sibling worktree path
-# e.g. ~/code/myapp + feature-x → ~/code/myapp-feature-x
-_get_worktree_path() {
-  local repo_root="$1"
-  local branch="$2"
-  echo "$(dirname "$repo_root")/$(basename "$repo_root")-${branch}"
-}
