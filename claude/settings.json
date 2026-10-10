@@ -122,5 +122,8 @@
   "editorMode": "vim",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true
+  }
 }
