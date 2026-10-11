@@ -68,28 +68,6 @@
     "find-skills": "off"
   },
   "hooks": {
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/danny/dotfiles/agents/hooks/notify.sh",
-            "statusMessage": "Sending completion notification..."
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/danny/dotfiles/agents/hooks/notify.sh",
-            "statusMessage": "Sending notification..."
-          }
-        ]
-      }
-    ],
     "SessionStart": [
       {
         "hooks": [
