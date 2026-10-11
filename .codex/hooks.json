@@ -10,17 +10,6 @@
           }
         ]
       }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "command": "/Users/danny/dotfiles/agents/hooks/notify.sh",
-            "statusMessage": "Sending completion notification...",
-            "type": "command"
-          }
-        ]
-      }
     ]
   }
 }
