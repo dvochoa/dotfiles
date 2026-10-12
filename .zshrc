@@ -53,6 +53,13 @@ bindkey -M vicmd _ beginning-of-line
 # Configure the timeout for multi-input commands
 export KEYTIMEOUT=1
 
+# Include host name in terminal input line when SSH'd
+if [[ -n $SSH_CONNECTION ]]; then
+  PROMPT='%F{yellow}%m%f %1~ %# '
+else
+  PROMPT='%F{blue}%1~%f %# '
+fi
+
 ## Functions
 # Navigate files recursively within the current directory with preview and open selected file in nvim
 vif() {
