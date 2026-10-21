@@ -26,14 +26,18 @@ Ground the body in the real diff. Before writing it, get the actual changed-file
 `gh pr diff --name-only` (or `git diff main...HEAD --name-only`). Every file and change named in
 the body must appear in that list — do not describe work from other branches, and do not leave
 stray session URLs or scratch links in the body. If the diff contradicts what you expected to
-ship, stop and surface it rather than describing the intent.
+ship, stop, and surface it rather than describing the intent.
 
-PR body format:
+PR body format
+
+## Background
+
+[Prior information that adds helpful context to this PR, if there is none then omit this section]
 
 ## Description
 
-[what changed and why]
+[What changed and why]
 
-## Change Summary
+## Testing
 
-[bullet list of affected files/components and their changes]
+[How this change has been tested]

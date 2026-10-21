@@ -1,7 +1,7 @@
-vim.g.mapleader = " " -- set leader key before Lazy
+vim.g.mapleader = " "  -- set leader key before Lazy
 
-require("danny.lazy") -- load plugins via lazy
+require("danny.lazy")  -- load plugins via lazy
 require("danny.remap") -- set key rebindings
-require("danny.set") -- set options
-require("danny.lsp") -- lsp configuration
--- require("danny.godot") -- godot server pipe
+require("danny.set")   -- set options
+require("danny.lsp")   -- lsp configuration
+require("danny.godot") -- godot server pipe
