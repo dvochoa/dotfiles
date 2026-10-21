@@ -4,13 +4,13 @@ Steps:
 
 1. Run `git status` and `git diff` to review what's changed.
 2. If the current branch is `main`, create a new descriptive branch before staging or committing.
-   Use a short kebab-case summary.
+   Use a short (≤70 chars) kebab-case summary.
 3. Stage and commit any unstaged changes using a concise imperative commit message (≤72 chars).
    - Skip if there's nothing to commit.
-   - **The first commit on a branch is a normal commit. Every commit after that, for as long as the
-     PR is open, is a fixup** — `git commit --fixup=<sha>` targeting the branch commit it amends.
-     Never add a second standalone commit to a branch that already has one; successive work on the
-     same PR always attaches to an existing commit.
+   - **The first commit on a branch is a normal commit, a short imperative line (≤72 chars).
+     Every commit after that, for as long as the PR is open, is a fixup** — `git commit --fixup=<sha>`
+     targeting the branch commit it amends. Never add a second standalone commit to a branch that
+     already has one; successive work on the same PR always attaches to an existing commit.
    - When the branch has several commits, target the one whose content the change actually belongs
      to. If a change spans two, make one fixup per target rather than one fixup covering both.
    - Do not rebase, squash, amend, or force-push a branch that is already pushed — the fixups are
@@ -26,14 +26,18 @@ Ground the body in the real diff. Before writing it, get the actual changed-file
 `gh pr diff --name-only` (or `git diff main...HEAD --name-only`). Every file and change named in
 the body must appear in that list — do not describe work from other branches, and do not leave
 stray session URLs or scratch links in the body. If the diff contradicts what you expected to
-ship, stop and surface it rather than describing the intent.
+ship, stop, and surface it rather than describing the intent.
 
-PR body format:
+PR body format
+
+## Background
+
+[Prior information that adds helpful context to this PR, if there is none then omit this section]
 
 ## Description
 
-[what changed and why]
+[What changed and why]
 
-## Change Summary
+## Testing
 
-[bullet list of affected files/components and their changes]
+[How this change has been tested]

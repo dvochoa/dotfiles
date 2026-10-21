@@ -79,7 +79,7 @@ The test: Every changed line should trace directly to the user's request.
 - When giving a response that references documentation, provide a link to said documentation
 - If unsure, say so explicitly rather than guessing
 
-## Screenshots (“use a screenshot”)
+## Screenshots
 
 - Pick newest PNG or JPG in `~/Desktop` or `~/Desktop`.
 - Verify it’s the right UI (ignore filename).
@@ -101,28 +101,13 @@ The test: Every changed line should trace directly to the user's request.
 - **Never run `git commit`, `git push`, `git rebase`, or open a PR unless asked directly, in that
   message.** Not because a task looks done, not because a project's definition of done lists it,
   not because you were asked to commit something earlier in the session. "Commit this", "ship it",
-  or `/ship` is the ask — a finished task is not. When in doubt, stop and say the work is ready.
+  or `/ship` is the ask — a finished task is not. When in doubt, stop, and say the work is ready.
 
-Everything below is _how_ to do it once you have been asked. It is not a licence to do it
+Everything below is _how_ to do it once you have been asked. It is not a license to do it
 unprompted.
 
-- One commit per PR. A task's implementation is a single commit — one _task_, not one commit per
-  file touched.
 - Branch names should provide a brief kebab-case description of the change. They should not include prefixes like
   `claude/`, `codex/`, `chore/`, `fix/` and so on.
-- Commit subject: short imperative line (≤72 chars)
-- PR title: short (≤70 chars)
-- PR body: always include `## Description` (what + why) and `## Change Summary` mentioning affected
-  files/components and their changes.
-- After a push you were asked to make: if no PR exists for the branch, open one with the standard
-  title + body. If a PR exists, update its description when the new commits materially change
-  what's shipping.
-- When you have been asked to ship review feedback, it goes in as a fixup commit
-  (`git commit --fixup=<sha-of-the-PR's-commit>`), never a new standalone commit. Feedback
-  arriving is not itself an ask — it changes what the code should be, not whether to publish it.
-  Fixups stay separate on the branch so the reviewer can see what changed since their last look,
-  then collapse on **squash and merge**. Do not rewrite or force-push a branch that is under
-  review — the fixups are the audit trail until merge.
 - Do not append `claude.ai/code/session_*` backlinks (e.g. a `Claude-Session:` trailer or a bare
   session URL) to commit messages or PR bodies.
 

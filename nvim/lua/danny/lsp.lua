@@ -16,6 +16,7 @@ local lsps = {
   'omnisharp',
   'ruby_lsp',
   'thriftls',
+  'harper_ls',
 }
 
 -- Mason is used to install LSPs
@@ -24,7 +25,7 @@ require('mason-lspconfig').setup({
   ensure_installed = lsps,
 })
 
--- Enable all of the lsps
+-- Enable all the lsps
 vim.lsp.enable(lsps)
 vim.lsp.enable('sourcekit')
 
@@ -70,25 +71,53 @@ vim.lsp.config.lua_ls = {
 }
 
 -- ts_ls: turn on inlay hints (server sends nothing unless these are enabled).
--- 'literals' for param names keeps them from being noisy on obvious calls.
+-- 'literals' for parameter names keeps them from being noisy on obvious calls.
 vim.lsp.config.ts_ls = {
   settings = {
     typescript = {
       inlayHints = {
         includeInlayParameterNameHints = 'literals',
         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        includeInlayFunctionParameterTypeHints = true,
+        includeInlayFunctionParameterTypeHints = false,
         includeInlayVariableTypeHints = false,
         includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = false,
         includeInlayEnumMemberValueHints = true,
       },
     },
     javascript = {
       inlayHints = {
         includeInlayParameterNameHints = 'literals',
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = false,
+        includeInlayFunctionLikeReturnTypeHints = false,
+      },
+    },
+  },
+}
+
+-- harper_ls: keep the user dictionary in dotfiles so added words follow across machines.
+vim.lsp.config.harper_ls = {
+  -- Harper only parses shell comments under VS Code's 'shellscript' id, not nvim's 'sh'
+  get_language_id = function(_, filetype)
+    return filetype == 'sh' and 'shellscript' or filetype
+  end,
+  -- Underline-only: typos shouldn't shout as loud as real errors
+  on_attach = function(client)
+    vim.diagnostic.config({ virtual_text = false }, vim.lsp.diagnostic.get_namespace(client.id))
+  end,
+  settings = {
+    ['harper-ls'] = {
+      userDictPath = vim.fn.expand('~/dotfiles/nvim/harper-dictionary.txt'),
+      -- Prose style rules can misfire on code in comments
+      linters = {
+        Dashes = false,
+        ExpandPrevious = false,
+        OrthographicConsistency = false,
+        SentenceCapitalization = false,
+        Spaces = false,
+        SplitWords = false,
+        ToDoHyphen = false,
+        UseEllipsisCharacter = false,
       },
     },
   },
@@ -145,7 +174,7 @@ cmp.setup.cmdline(':', {
     {
       name = 'cmdline',
       option = {
-        ignore_cmds = { 'Man', '!'}
+        ignore_cmds = { 'Man', '!' }
       }
     }
   }),
@@ -161,7 +190,7 @@ cmp.setup.cmdline({ '/', '?' }, {
 })
 
 vim.diagnostic.config({
-  virtual_text = true, -- Show diagnositc messages inline
+  virtual_text = true,  -- Show diagnostic messages inline
   severity_sort = true, -- Sort diagnostics by severity
 })
 
@@ -190,28 +219,28 @@ vim.api.nvim_create_autocmd('LspAttach', {
       })
     end
 
-    vim.keymap.set('n', 'gd', function() jump_centered(vim.lsp.buf.definition) end, opts) -- Go to definition
-    vim.keymap.set('n', 'H', vim.lsp.buf.hover, opts) -- Hover documentation
-    vim.keymap.set('n', 'gD', function() jump_centered(vim.lsp.buf.declaration) end, opts) -- Go to declaration
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts) -- Find references
+    vim.keymap.set('n', 'gd', function() jump_centered(vim.lsp.buf.definition) end, opts)     -- Go to definition
+    vim.keymap.set('n', 'H', vim.lsp.buf.hover, opts)                                         -- Hover documentation
+    vim.keymap.set('n', 'gD', function() jump_centered(vim.lsp.buf.declaration) end, opts)    -- Go to declaration
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)                                   -- Find references
     vim.keymap.set('n', 'gi', function() jump_centered(vim.lsp.buf.implementation) end, opts) -- Go to implementation
-    vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts) -- Rename the current entity
+    vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts)                                       -- Rename the current entity
 
-    vim.keymap.set('n', '<leader>vca', vim.lsp.buf.code_action, opts) -- Open vim code actions menu
+    vim.keymap.set('n', '<leader>vca', vim.lsp.buf.code_action, opts)                         -- Open vim code actions menu
     vim.keymap.set('n', '<leader>vi', function()
       vim.lsp.buf.code_action({
         context = { only = { 'source.addMissingImports.ts' }, diagnostics = {} },
         apply = true,
       })
-    end, opts) -- Add all missing imports (TS)
-    vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts) -- Open diagnostics menu
-    vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, opts) -- Go to next diagnostics item
+    end, opts)                                                                          -- Add all missing imports (TS)
+    vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts)                  -- Open diagnostics menu
+    vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, opts)  -- Go to next diagnostics item
     vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, opts) -- Go to prev diagnostics item
 
-    vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts) -- Show method signature
+    vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)                      -- Show method signature
 
     vim.keymap.set('n', '<leader>f', function()
-        vim.lsp.buf.format({ async = true })
+      vim.lsp.buf.format({ async = true })
     end, opts) -- Format file
   end,
 })
