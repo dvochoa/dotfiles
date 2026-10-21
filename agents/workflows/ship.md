@@ -4,13 +4,13 @@ Steps:
 
 1. Run `git status` and `git diff` to review what's changed.
 2. If the current branch is `main`, create a new descriptive branch before staging or committing.
-   Use a short kebab-case summary.
+   Use a short (≤70 chars) kebab-case summary.
 3. Stage and commit any unstaged changes using a concise imperative commit message (≤72 chars).
    - Skip if there's nothing to commit.
-   - **The first commit on a branch is a normal commit. Every commit after that, for as long as the
-     PR is open, is a fixup** — `git commit --fixup=<sha>` targeting the branch commit it amends.
-     Never add a second standalone commit to a branch that already has one; successive work on the
-     same PR always attaches to an existing commit.
+   - **The first commit on a branch is a normal commit, a short imperative line (≤72 chars).
+     Every commit after that, for as long as the PR is open, is a fixup** — `git commit --fixup=<sha>`
+     targeting the branch commit it amends. Never add a second standalone commit to a branch that
+     already has one; successive work on the same PR always attaches to an existing commit.
    - When the branch has several commits, target the one whose content the change actually belongs
      to. If a change spans two, make one fixup per target rather than one fixup covering both.
    - Do not rebase, squash, amend, or force-push a branch that is already pushed — the fixups are
