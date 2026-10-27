@@ -19,7 +19,8 @@ Steps:
 5. Check if a PR already exists for this branch (`gh pr view`).
    - If yes: update its title and body with `gh pr edit` to reflect the current diff vs main. Leave
      any TODOs unchanged.
-   - If no: create one with `gh pr create` using the standard title + body format.
+   - If no: create one **as a draft** with `gh pr create --draft` using the standard title + body
+     format. Never open it as ready for review — the human marks it ready.
 6. Output the PR URL.
 
 Ground the body in the real diff. Before writing it, get the actual changed-file list with
