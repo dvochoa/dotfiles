@@ -15,6 +15,7 @@ vim.opt.smartindent = true -- automatically indent new lines
 vim.opt.wrap = false -- disable line wrapping
 
 vim.opt.incsearch = true -- enable incremental search
+vim.opt.updatetime = 500 -- trigger CursorHold after 500ms
 
 vim.opt.termguicolors = true -- enable 24-bit RGB colors
 

@@ -194,6 +194,10 @@ vim.diagnostic.config({
   severity_sort = true, -- Sort diagnostics by severity
 })
 
+vim.api.nvim_create_autocmd('CursorHold', {
+  callback = vim.lsp.buf.hover,
+})
+
 -- TODO: Move these into remap.lua and use which_key?
 -- LSP keybindings (applied when LSP attaches to a buffer)
 -- Note: Neovim 0.11+ has built-in defaults like K, grn, gra, etc.

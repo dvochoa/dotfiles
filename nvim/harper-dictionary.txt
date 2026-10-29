@@ -1,3 +1,4 @@
+Supabase
 TODO
 TODOs
 dotnet
@@ -6,4 +7,6 @@ herdr
 keybindings
 lua
 nvim
+pnpm
+postgres
 zsh
