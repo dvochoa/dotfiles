@@ -90,6 +90,11 @@
       }
     ]
   },
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true
+  },
   "outputStyle": "Explanatory",
   "alwaysThinkingEnabled": true,
   "tui": "fullscreen",
@@ -100,8 +105,5 @@
   "editorMode": "vim",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "enabledPlugins": {
-    "lua-lsp@claude-plugins-official": true
-  }
+  "voiceEnabled": true
 }
