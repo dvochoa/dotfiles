@@ -195,7 +195,8 @@ vim.diagnostic.config({
 })
 
 vim.api.nvim_create_autocmd('CursorHold', {
-  callback = vim.lsp.buf.hover,
+  callback = function() vim.lsp.buf.hover({ silent = true }) end,
+  desc = 'Show LSP hover on cursor idle',
 })
 
 -- TODO: Move these into remap.lua and use which_key?
