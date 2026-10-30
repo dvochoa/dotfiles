@@ -42,7 +42,7 @@ When editing existing code:
 When your changes create orphans:
 
 - Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
+- Don't remove preexisting dead code unless asked.
 
 The test: Every changed line should trace directly to the user's request.
 
@@ -106,16 +106,16 @@ The test: Every changed line should trace directly to the user's request.
 Everything below is _how_ to do it once you have been asked. It is not a license to do it
 unprompted.
 
-- Branch names should provide a brief kebab-case description of the change. They should not include prefixes like
-  `claude/`, `codex/`, `chore/`, `fix/` and so on.
+- Branch names should provide a brief (≤40 chars) kebab-case description of the change that is
+  prefixed with `do-`.
 - Do not append `claude.ai/code/session_*` backlinks (e.g. a `Claude-Session:` trailer or a bare
   session URL) to commit messages or PR bodies.
 
 ## Frontend Design
 
 - Avoid “AI slop” UI. Be opinionated + distinctive.
-- Unless starting from scratch, keep design consistent with the existing asthetic
+- Unless starting from scratch, keep design consistent with the existing aesthetic.
 - Typography: pick a real font; avoid Inter/Roboto/Arial/system defaults.
 - Theme: commit to a palette; use CSS vars; bold accents > timid gradients.
-- Motion: 1–2 high-impact moments (staggered reveal beats random micro-anim).
+- Motion: 1–2 high-impact moments (staggered reveal beats random micro-animation).
 - Background: add depth (gradients/patterns), not flat default.
