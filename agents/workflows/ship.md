@@ -3,8 +3,8 @@ Commit all changes, push to remote, and create or update the PR description.
 Steps:
 
 1. Run `git status` and `git diff` to review what's changed.
-2. If the current branch is `main`, create a new descriptive branch before staging or committing.
-   Use a short (≤70 chars) kebab-case summary.
+2. If the current branch is `main`, create a new branch before staging or committing.
+   Use a short (≤40 chars) kebab-case branch name that is prefixed with `do-`.
 3. Stage and commit any unstaged changes using a concise imperative commit message (≤72 chars).
    - Skip if there's nothing to commit.
    - **The first commit on a branch is a normal commit, a short imperative line (≤72 chars).
