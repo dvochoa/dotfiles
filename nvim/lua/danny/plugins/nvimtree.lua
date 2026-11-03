@@ -27,7 +27,7 @@ return {
           -- Width of File Explorer expands to fit content
           adaptive_size = true,
           width = {
-            max = 75, -- Maximum width in columns
+            max = 60, -- Maximum width in columns
           },
         },
         renderer = {
