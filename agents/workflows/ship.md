@@ -37,8 +37,11 @@ PR body format
 
 ## Description
 
-[What changed and why]
+[What changed and why. Write high-level prose, _not_ a bullet list walking through each individual
+change.]
 
 ## Testing
 
-[How this change has been tested]
+[How this change has been tested. Keep it high level, _not_ a bullet list of every individual test:
+mention the kinds of testing done (e.g. unit tests) and call out any remaining TODOs, such as
+testing against a deployment of the application.]
