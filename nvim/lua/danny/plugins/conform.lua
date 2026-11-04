@@ -14,6 +14,10 @@ return {
       -- standalone swift-format binary that isn't on PATH.
       swift = { "swift" },
     },
-    format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
+    -- thriftls's formatter rewrites indent/alignment, so skip thrift.
+    format_on_save = function(bufnr)
+      if vim.bo[bufnr].filetype == "thrift" then return end
+      return { timeout_ms = 500, lsp_format = "fallback" }
+    end,
   }
 }
