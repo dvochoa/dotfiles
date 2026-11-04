@@ -33,12 +33,13 @@ PR body format
 
 ## Background
 
-[Prior information that adds helpful context to this PR, if there is none then omit this section]
+[Prior information that adds helpful context to this PR. If there is none, omit this section. Link
+related PRs, documentation, etc. as hyperlinks where possible.]
 
 ## Description
 
 [What changed and why. Write high-level prose, _not_ a bullet list walking through each individual
-change.]
+change. Link related PRs, documentation, etc. as hyperlinks where possible.]
 
 ## Testing
 
