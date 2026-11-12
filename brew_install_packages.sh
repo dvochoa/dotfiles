@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Errors should exit the program immeditately
+# Errors should exit the program immediately
 set -euo pipefail
 
 # List of Homebrew formulae to install
@@ -10,7 +10,7 @@ packages=(
 
 # List of Homebrew casks to install
 casks=(
-  codex docker ghostty hamed-elfayome/claude-usage/claude-usage-tracker rectangle
+  codex docker ghostty rectangle
 )
 
 echo "Updating Homebrew..."
