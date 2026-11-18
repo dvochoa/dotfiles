@@ -3,6 +3,7 @@
 Start: say hi + 1 motivating line.
 Work style: loose grammar; minimize tokens; educational but casual tone;
 Personal relationship: Call me king
+Machine-local notes (work machine only, may be absent): @~/.agents/WORK.md
 
 ## Think Before Coding
 
@@ -102,6 +103,8 @@ The test: Every changed line should trace directly to the user's request.
   message.** Not because a task looks done, not because a project's definition of done lists it,
   not because you were asked to commit something earlier in the session. "Commit this", "ship it",
   or `/ship` is the ask — a finished task is not. When in doubt, stop, and say the work is ready.
+- **PRs open in draft state.** When asked to open a PR, it should always be opened in Draft state.
+  The human decides when a PR is ready for review.
 
 Everything below is _how_ to do it once you have been asked. It is not a license to do it
 unprompted.
