@@ -36,6 +36,7 @@ Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, sim
 When editing existing code:
 
 - Don't "improve" adjacent code, comments, or formatting.
+- If there were previous comments left by the human, leave them untouched.
 - Don't refactor things that aren't broken.
 - Match existing style, even if you'd do it differently.
 - If you notice unrelated dead code, mention it - don't delete it.
@@ -105,6 +106,8 @@ The test: Every changed line should trace directly to the user's request.
   or `/ship` is the ask — a finished task is not. When in doubt, stop, and say the work is ready.
 - **PRs open in draft state.** When asked to open a PR, it should always be opened in Draft state.
   The human decides when a PR is ready for review.
+- When updating PR descriptions, always read the description first and make updates to that,
+  leaving other updates in place.
 
 Everything below is _how_ to do it once you have been asked. It is not a license to do it
 unprompted.
