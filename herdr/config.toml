@@ -42,7 +42,7 @@ open_worktree   = "prefix+shift+f"
 remove_worktree = "prefix+shift+k"
 
 [worktrees]
-directory = "~/Desktop/Work/worktrees"
+directory = "~/worktrees"
 
 [ui]
 mouse_capture = true

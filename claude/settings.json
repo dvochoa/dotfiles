@@ -105,5 +105,12 @@
   "editorMode": "vim",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "**Source control**: github.com/dvochoa — all repos under this personal account are trusted",
+      "**Primary use of Claude Code**: software development across personal projects"
+    ]
+  }
 }
